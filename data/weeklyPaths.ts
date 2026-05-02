@@ -1,0 +1,643 @@
+export interface PathDay {
+  dayNum: number;
+  title: string;
+  practice: string;
+  scripture?: string;
+}
+
+export interface WeeklyPath {
+  id: string;
+  title: string;
+  subtitle: string;
+  emoji: string;
+  durationDays: number;
+  premium: boolean;
+  days: PathDay[];
+}
+
+export const WEEKLY_PATHS: WeeklyPath[] = [
+  {
+    id: 'notre-pere',
+    title: 'Semaine du Notre-Père',
+    subtitle: '7 jours sur chaque demande de la prière de Jésus',
+    emoji: '🕊️',
+    durationDays: 7,
+    premium: false,
+    days: [
+      {
+        dayNum: 1,
+        title: 'Notre Père qui es aux cieux',
+        practice: 'Méditez sur la paternité de Dieu. Qu\'est-ce que cela change de l\'appeler "Père" ? Parlez-lui aujourd\'hui comme à un père aimant.',
+        scripture: 'Mt 6,9',
+      },
+      {
+        dayNum: 2,
+        title: 'Que ton nom soit sanctifié',
+        practice: 'Comment sanctifiez-vous le nom de Dieu dans votre vie quotidienne ? Par vos paroles, vos actes, votre comportement au travail ?',
+        scripture: 'Is 6,3',
+      },
+      {
+        dayNum: 3,
+        title: 'Que ton règne vienne',
+        practice: 'Priez pour que le Royaume de Dieu avance dans votre cœur, dans votre famille, dans votre milieu de vie. Faites un geste concret pour ce Royaume.',
+        scripture: 'Lc 17,21',
+      },
+      {
+        dayNum: 4,
+        title: 'Que ta volonté soit faite',
+        practice: 'Y a-t-il une situation dans votre vie où vous résistez à la volonté de Dieu ? Faites un acte d\'abandon : "Seigneur, que ta volonté soit faite, pas la mienne."',
+        scripture: 'Mc 14,36',
+      },
+      {
+        dayNum: 5,
+        title: 'Donne-nous notre pain quotidien',
+        practice: 'Rendez grâce pour la nourriture, le travail, la santé reçus. Pensez à ceux qui manquent du nécessaire et faites un geste de partage.',
+        scripture: 'Ex 16,15',
+      },
+      {
+        dayNum: 6,
+        title: 'Pardonne-nous nos offenses',
+        practice: 'Examinez votre conscience avec douceur. Demandez pardon à Dieu pour ce qui vous pèse. Puis pardonnez sincèrement à quelqu\'un qui vous a blessé.',
+        scripture: 'Mt 18,21',
+      },
+      {
+        dayNum: 7,
+        title: 'Délivre-nous du mal',
+        practice: 'Priez pour être libéré de tout ce qui vous éloigne de Dieu : peurs, addictions, mauvaises habitudes. Demandez la protection divine pour vous et vos proches.',
+        scripture: '1 P 5,8',
+      },
+    ],
+  },
+  {
+    id: 'beatitudes',
+    title: 'Chemin des Béatitudes',
+    subtitle: 'Vivre les 8 béatitudes en 7 jours',
+    emoji: '⛰️',
+    durationDays: 7,
+    premium: false,
+    days: [
+      {
+        dayNum: 1,
+        title: 'Heureux les pauvres en esprit',
+        practice: 'Identifiez dans votre vie un domaine où vous êtes trop attaché à vos biens, votre réputation ou vos certitudes. Pratiquez le détachement intérieur.',
+        scripture: 'Mt 5,3',
+      },
+      {
+        dayNum: 2,
+        title: 'Heureux les doux',
+        practice: 'Choisissez aujourd\'hui de répondre avec douceur à une situation irritante. Comptez jusqu\'à cinq avant de réagir et laissez passer la première impulsion.',
+        scripture: 'Mt 5,5',
+      },
+      {
+        dayNum: 3,
+        title: 'Heureux ceux qui pleurent',
+        practice: 'Permettez-vous d\'être touché par une souffrance du monde. Priez pour les victimes de l\'injustice ou de la violence. La compassion est une béatitude.',
+        scripture: 'Mt 5,4',
+      },
+      {
+        dayNum: 4,
+        title: 'Heureux ceux qui ont faim de justice',
+        practice: 'Faites un examen : quel appel à la justice négligez-vous ? Engagez-vous concrètement pour plus de justice dans votre milieu, même modestement.',
+        scripture: 'Mt 5,6',
+      },
+      {
+        dayNum: 5,
+        title: 'Heureux les miséricordieux',
+        practice: 'Exercez la miséricorde envers quelqu\'un qui ne le mérite pas facilement. Visitez un malade, appelez quelqu\'un de seul, rendez service sans attendre de retour.',
+        scripture: 'Mt 5,7',
+      },
+      {
+        dayNum: 6,
+        title: 'Heureux les cœurs purs',
+        practice: 'Travaillez sur la pureté de vos intentions. Faites une action bonne aujourd\'hui sans vous en vanter et sans chercher à être vu ni récompensé.',
+        scripture: 'Mt 5,8',
+      },
+      {
+        dayNum: 7,
+        title: 'Heureux les artisans de paix',
+        practice: 'Identifiez un conflit dans votre entourage. Priez pour la réconciliation et cherchez une action concrète pour contribuer à la paix entre les personnes concernées.',
+        scripture: 'Mt 5,9',
+      },
+    ],
+  },
+  {
+    id: 'gratitude',
+    title: 'École de la Gratitude',
+    subtitle: 'Transformer son regard par la reconnaissance',
+    emoji: '🙏',
+    durationDays: 7,
+    premium: false,
+    days: [
+      {
+        dayNum: 1,
+        title: 'La gratitude pour la vie',
+        practice: 'Listez dix choses pour lesquelles vous êtes reconnaissant de simplement être en vie. Dites "merci" pour chacune, à voix haute ou intérieurement.',
+        scripture: 'Ps 100,4',
+      },
+      {
+        dayNum: 2,
+        title: 'La gratitude pour les personnes',
+        practice: 'Choisissez une personne de votre vie et remerciez-la concrètement aujourd\'hui : par un message, un appel ou une parole directe.',
+        scripture: 'Rm 1,8',
+      },
+      {
+        dayNum: 3,
+        title: 'La gratitude dans l\'épreuve',
+        practice: 'Pensez à une difficulté passée qui vous a fait grandir. Remerciez Dieu pour la leçon reçue, même si le chemin fut douloureux.',
+        scripture: 'Rm 5,3-4',
+      },
+      {
+        dayNum: 4,
+        title: 'La gratitude pour le beau',
+        practice: 'Arrêtez-vous trois fois aujourd\'hui devant quelque chose de beau : un paysage, un sourire, une musique. Prenez le temps de vous émerveiller.',
+        scripture: 'Ps 19,2',
+      },
+      {
+        dayNum: 5,
+        title: 'La gratitude pour le Corps du Christ',
+        practice: 'Remerciez Dieu pour l\'Église, imparfaite mais sainte, pour les saints, pour les croyants qui vous ont transmis la foi.',
+        scripture: '1 Co 12,27',
+      },
+      {
+        dayNum: 6,
+        title: 'La gratitude pour la Parole',
+        practice: 'Ouvrez la Bible à un passage qui vous a déjà touché. Lisez-le lentement et remerciez Dieu pour ce cadeau de sa Parole.',
+        scripture: 'Ps 119,105',
+      },
+      {
+        dayNum: 7,
+        title: 'Vivre en action de grâces',
+        practice: 'Décidez de transformer chaque repas en eucharistie, chaque rencontre en don. La gratitude n\'est plus un exercice mais un mode de vie.',
+        scripture: '1 Th 5,18',
+      },
+    ],
+  },
+  {
+    id: 'priere-contemplative',
+    title: 'Semaine de Prière Contemplative',
+    subtitle: 'S\'initier à l\'oraison silencieuse',
+    emoji: '✨',
+    durationDays: 7,
+    premium: true,
+    days: [
+      {
+        dayNum: 1,
+        title: 'Le silence extérieur',
+        practice: 'Créez un espace de silence physique : éteignez les écrans pendant une heure. Remarquez ce qui se passe en vous dans ce silence.',
+        scripture: 'Ps 46,11',
+      },
+      {
+        dayNum: 2,
+        title: 'Le silence intérieur',
+        practice: 'Passez dix minutes assis sans faire autre chose que laisser les pensées passer. Ne les suivez pas, observez-les comme des nuages.',
+        scripture: '1 R 19,12',
+      },
+      {
+        dayNum: 3,
+        title: 'La prière du nom',
+        practice: 'Répétez lentement le nom "Jésus" pendant dix minutes, synchronisé avec votre respiration. Laissez ce nom remplir votre cœur.',
+        scripture: 'Ph 2,10',
+      },
+      {
+        dayNum: 4,
+        title: 'La lectio contemplative',
+        practice: 'Lisez cinq fois de suite le même verset. Laissez un mot s\'imposer à vous. Restez dans ce mot en silence pendant cinq minutes.',
+        scripture: 'Jn 1,1',
+      },
+      {
+        dayNum: 5,
+        title: 'La contemplation iconique',
+        practice: 'Regardez une icône ou une image sacrée pendant dix minutes. Ne réfléchissez pas, regardez simplement et laissez l\'image parler à votre cœur.',
+        scripture: '2 Co 3,18',
+      },
+      {
+        dayNum: 6,
+        title: 'La prière du cœur',
+        practice: 'Pratiquez la prière de Jésus : "Seigneur Jésus-Christ, Fils de Dieu, aie pitié de moi, pécheur." Répétez-la en marchant ou assis, en rythme avec votre respiration.',
+        scripture: 'Lc 18,13',
+      },
+      {
+        dayNum: 7,
+        title: 'L\'abandon contemplatif',
+        practice: 'Vingt minutes de silence total devant Dieu. Pas de mots, pas d\'images. Juste être là, disponible. Laissez Dieu faire ce qu\'il veut.',
+        scripture: 'Jn 15,5',
+      },
+    ],
+  },
+  {
+    id: 'vertus-chretiennes',
+    title: 'Les Vertus Chrétiennes',
+    subtitle: 'Cultiver les vertus théologales et cardinales',
+    emoji: '⚜️',
+    durationDays: 7,
+    premium: true,
+    days: [
+      {
+        dayNum: 1,
+        title: 'La Foi',
+        practice: 'Examinez votre foi : est-elle vivante ou routinière ? Faites un acte de foi conscient sur un point qui vous coûte.',
+        scripture: 'He 11,1',
+      },
+      {
+        dayNum: 2,
+        title: 'L\'Espérance',
+        practice: 'Priez pour une situation qui semble sans espoir. Choisissez de croire que Dieu peut en faire surgir quelque chose de bon.',
+        scripture: 'Rm 8,24',
+      },
+      {
+        dayNum: 3,
+        title: 'La Charité',
+        practice: 'Faites un acte de charité qui vous coûte : temps, argent ou orgueil. Faites-le en secret, sans en parler.',
+        scripture: '1 Co 13,4',
+      },
+      {
+        dayNum: 4,
+        title: 'La Prudence',
+        practice: 'Avant une décision importante, prenez le temps de prier, de consulter et de réfléchir. Pratiquez la prudence comme vertu spirituelle.',
+        scripture: 'Pr 3,5-6',
+      },
+      {
+        dayNum: 5,
+        title: 'La Justice',
+        practice: 'Examinez si vous rendez à chacun ce qui lui est dû : dans votre famille, votre travail, vos relations. Réparez une injustice si possible.',
+        scripture: 'Mi 6,8',
+      },
+      {
+        dayNum: 6,
+        title: 'La Force',
+        practice: 'Identifiez une peur ou une lâcheté dans votre vie. Demandez la grâce du courage. Faites un acte de courage spirituel.',
+        scripture: 'Jos 1,9',
+      },
+      {
+        dayNum: 7,
+        title: 'La Tempérance',
+        practice: 'Choisissez une forme de mortification légère aujourd\'hui : sobriété dans les repas, les écrans ou les paroles. Offrez-la à Dieu.',
+        scripture: '1 Co 9,25',
+      },
+    ],
+  },
+  {
+    id: 'avent',
+    title: 'Semaine de l\'Avent',
+    subtitle: 'Préparer son cœur à la venue du Christ',
+    emoji: '🕯️',
+    durationDays: 7,
+    premium: true,
+    days: [
+      {
+        dayNum: 1,
+        title: 'Veiller dans l\'attente',
+        practice: 'L\'Avent est un temps de vigilance. Qu\'attendez-vous de Dieu ? Quelles promesses n\'ont pas encore été tenues dans votre vie ?',
+        scripture: 'Mc 13,33',
+      },
+      {
+        dayNum: 2,
+        title: 'Convertir les cœurs',
+        practice: 'Jean-Baptiste crie : "Préparez les chemins du Seigneur !" Quel chemin devez-vous redresser dans votre cœur pour accueillir le Christ ?',
+        scripture: 'Is 40,3',
+      },
+      {
+        dayNum: 3,
+        title: 'La joie de l\'attente',
+        practice: 'Méditez sur la joie de Marie qui attend la naissance de Jésus. Cultivez la joie de l\'attente, cette joie qui n\'a pas encore reçu mais qui croit déjà.',
+        scripture: 'Lc 1,47',
+      },
+      {
+        dayNum: 4,
+        title: 'Les prophètes et la promesse',
+        practice: 'Lisez Is 9,1-6 sur la promesse du Messie. Méditez sur la longue attente d\'Israël. Comment rejoignez-vous cette attente dans votre propre vie ?',
+        scripture: 'Is 9,5',
+      },
+      {
+        dayNum: 5,
+        title: 'Dieu se fait petit',
+        practice: 'Contemplez le paradoxe de Dieu qui se fait enfant. Là où attendez-vous que Dieu agisse en grand ? Et s\'il agissait en petit ?',
+        scripture: 'Ph 2,7',
+      },
+      {
+        dayNum: 6,
+        title: 'Préparer un geste d\'amour',
+        practice: 'Préparez un cadeau spirituel pour Noël : une prière spéciale, une réconciliation, un service. Ce sera votre offrande à l\'Enfant-Jésus.',
+        scripture: 'Mt 2,11',
+      },
+      {
+        dayNum: 7,
+        title: 'Maranatha ! Viens, Seigneur Jésus',
+        practice: 'Terminez votre semaine d\'Avent par la prière la plus ancienne de l\'Église : "Maranatha ! Viens, Seigneur Jésus !" Répétez-la tout au long du jour.',
+        scripture: 'Ap 22,20',
+      },
+    ],
+  },
+  {
+    id: 'careme',
+    title: 'Semaine du Carême',
+    subtitle: 'Prière, jeûne et aumône pour se purifier',
+    emoji: '✝️',
+    durationDays: 7,
+    premium: true,
+    days: [
+      {
+        dayNum: 1,
+        title: 'Le désert et la tentation',
+        practice: 'Jésus passe 40 jours au désert. Identifiez votre "désert" spirituel et vos tentations principales. Demandez la force de les affronter avec Jésus.',
+        scripture: 'Mt 4,1-11',
+      },
+      {
+        dayNum: 2,
+        title: 'Le jeûne intérieur',
+        practice: 'Pratiquez un petit jeûne : nourriture, paroles inutiles, réseaux sociaux. Offrez cet espace vide à Dieu.',
+        scripture: 'Is 58,6',
+      },
+      {
+        dayNum: 3,
+        title: 'Rencontrer les pauvres',
+        practice: 'Faites un geste concret d\'aumône ou de service envers un pauvre ou un exclu. Regardez-le dans les yeux et traitez-le en frère.',
+        scripture: 'Mt 25,40',
+      },
+      {
+        dayNum: 4,
+        title: 'Le Chemin de Croix',
+        practice: 'Méditez sur une station du Chemin de Croix que vous choisissez. Reliez-la à une croix que vous portez en ce moment.',
+        scripture: 'Lc 23,26',
+      },
+      {
+        dayNum: 5,
+        title: 'La réconciliation',
+        practice: 'Le Carême est un temps de réconciliation. Pensez à quelqu\'un à qui vous devez pardon. Faites le premier pas.',
+        scripture: 'Mt 5,23-24',
+      },
+      {
+        dayNum: 6,
+        title: 'Lire la Passion',
+        practice: 'Lisez lentement la Passion de Jésus (Mc 14-15). Mettez votre nom à la place des disciples. Où seriez-vous dans ce récit ?',
+        scripture: 'Mc 14,32',
+      },
+      {
+        dayNum: 7,
+        title: 'La vigile pascale dans le cœur',
+        practice: 'Méditez sur la nuit entre la mort et la résurrection. La foi tient dans cette nuit obscure. Comment vivez-vous les nuits de l\'âme ?',
+        scripture: 'Rm 6,4',
+      },
+    ],
+  },
+  {
+    id: 'saints-inspirants',
+    title: 'Saints Inspirants',
+    subtitle: 'Marcher sur les pas des témoins de la foi',
+    emoji: '👑',
+    durationDays: 7,
+    premium: true,
+    days: [
+      {
+        dayNum: 1,
+        title: 'François d\'Assise',
+        practice: 'Méditez la prière "Seigneur, fais de moi un instrument de ta paix." Choisissez un acte de paix à accomplir aujourd\'hui.',
+        scripture: 'Mt 5,9',
+      },
+      {
+        dayNum: 2,
+        title: 'Thérèse de l\'Enfant-Jésus',
+        practice: 'La "petite voie" : accomplir les petites choses avec grand amour. Choisissez une tâche ordinaire et faites-la avec une attention totale, comme pour Dieu.',
+        scripture: 'Mt 18,3',
+      },
+      {
+        dayNum: 3,
+        title: 'Ignace de Loyola',
+        practice: 'Faites l\'examen de conscience ignacien ce soir : gratitude, lumière, revue, repentir, espérance. Notez où Dieu vous parle.',
+        scripture: 'Rm 12,2',
+      },
+      {
+        dayNum: 4,
+        title: 'Mère Teresa',
+        practice: 'Cherchez le "Christ déguisé en pauvre" dans votre entourage. Servez-le sans attendre de retour, avec joie et sans calcul.',
+        scripture: 'Mt 25,45',
+      },
+      {
+        dayNum: 5,
+        title: 'Marie Madeleine',
+        practice: 'Méditez sur la conversion de Marie Madeleine. Quel amour démesurée pour Jésus ! Laissez cet amour brûler davantage en vous.',
+        scripture: 'Lc 7,47',
+      },
+      {
+        dayNum: 6,
+        title: 'Jean Paul II',
+        practice: '"N\'ayez pas peur !" Identifiez vos peurs spirituelles et apostoliques. Priez pour le courage d\'annoncer l\'Évangile là où vous vivez.',
+        scripture: 'Is 41,10',
+      },
+      {
+        dayNum: 7,
+        title: 'Marie, Reine des Saints',
+        practice: 'Terminez la semaine avec Marie qui nous conduit à tous les saints. Demandez-lui d\'intercéder pour que vous deveniez vous aussi un saint ordinaire.',
+        scripture: 'Lc 1,38',
+      },
+    ],
+  },
+  {
+    id: 'misericorde-profonde',
+    title: 'Profondeurs de la Miséricorde',
+    subtitle: 'Plonger dans l\'amour infini de Dieu',
+    emoji: '💛',
+    durationDays: 7,
+    premium: true,
+    days: [
+      {
+        dayNum: 1,
+        title: 'La miséricorde reçue',
+        practice: 'Méditez sur votre propre besoin de miséricorde. Recevez humblement le pardon de Dieu pour vos péchés, sans minimiser et sans vous accabler.',
+        scripture: 'Ps 51,3',
+      },
+      {
+        dayNum: 2,
+        title: 'Le fils prodigue',
+        practice: 'Lisez la parabole du fils prodigue (Lc 15). Êtes-vous davantage le fils prodigue ou le fils aîné ? Les deux ont besoin de la miséricorde du Père.',
+        scripture: 'Lc 15,20',
+      },
+      {
+        dayNum: 3,
+        title: 'La miséricorde donnée',
+        practice: 'Exercez la miséricorde corporelle : visitez un malade, nourrissez un affamé, réconfortez un affligé. C\'est servir Jésus lui-même.',
+        scripture: 'Mt 25,36',
+      },
+      {
+        dayNum: 4,
+        title: 'Le Chapelet de la Miséricorde',
+        practice: 'Priez le Chapelet de la Miséricorde divine de Sainte Faustine. Méditez sur la Passion de Jésus comme source infinie de miséricorde.',
+        scripture: 'Jn 19,34',
+      },
+      {
+        dayNum: 5,
+        title: 'Miséricorde et justice',
+        practice: 'Méditez sur la tension entre miséricorde et justice en Dieu. Comment vivez-vous cette tension dans vos propres jugements sur les autres ?',
+        scripture: 'Ps 85,11',
+      },
+      {
+        dayNum: 6,
+        title: 'La miséricorde pour les lointains',
+        practice: 'Priez pour des personnes éloignées de Dieu : athées, blessés par l\'Église, indifférents. La miséricorde de Dieu les cherche aussi.',
+        scripture: 'Ez 34,16',
+      },
+      {
+        dayNum: 7,
+        title: 'Devenir miséricordieux',
+        practice: 'Résolution : cette semaine, exercez une miséricorde par jour. Notez chaque soir comment la miséricorde transforme votre cœur.',
+        scripture: 'Lc 6,36',
+      },
+    ],
+  },
+  {
+    id: 'vie-interieure',
+    title: 'La Vie Intérieure',
+    subtitle: 'Construire son château intérieur avec Thérèse d\'Avila',
+    emoji: '🏰',
+    durationDays: 7,
+    premium: true,
+    days: [
+      {
+        dayNum: 1,
+        title: 'Connais-toi toi-même',
+        practice: 'Passez dix minutes en silence à simplement observer ce qui se passe en vous. Émotions, désirs, résistances. Ne jugez pas, observez.',
+        scripture: '1 Co 3,16',
+      },
+      {
+        dayNum: 2,
+        title: 'Les premières demeures',
+        practice: 'Thérèse décrit les premières demeures comme habitées par le bruit du monde. Qu\'est-ce qui encombre votre vie intérieure ? Commencez à faire le ménage.',
+        scripture: 'Lc 10,41',
+      },
+      {
+        dayNum: 3,
+        title: 'La prière de recueillement',
+        practice: 'Pratiquez le recueillement actif : fermez les yeux, rentrez à l\'intérieur de vous-même, cherchez le Seigneur dans le centre de votre être.',
+        scripture: 'Mt 6,6',
+      },
+      {
+        dayNum: 4,
+        title: 'La nuit de l\'âme',
+        practice: 'Saint Jean de la Croix décrit la nuit obscure comme purification. Pensez à un moment de sécheresse spirituelle. Comment Dieu travaillait-il en vous ?',
+        scripture: 'Jb 23,8',
+      },
+      {
+        dayNum: 5,
+        title: 'L\'union à Dieu',
+        practice: 'Méditez sur l\'union mystique : Dieu veut habiter en vous et vous en lui. Demandez la grâce de cette union croissante.',
+        scripture: 'Jn 17,21',
+      },
+      {
+        dayNum: 6,
+        title: 'Fruits de la vie intérieure',
+        practice: 'La vie intérieure porte des fruits dans la vie active. Regardez comment votre prière a transformé vos relations, votre travail, votre attitude.',
+        scripture: 'Jn 15,5',
+      },
+      {
+        dayNum: 7,
+        title: 'Dieu seul suffit',
+        practice: 'Méditez sur le célèbre signet de Thérèse d\'Avila : "Que rien ne te trouble, que rien ne t\'effraie. Qui possède Dieu ne manque de rien. Dieu seul suffit."',
+        scripture: 'Ph 4,11',
+      },
+    ],
+  },
+  {
+    id: 'evangelisation',
+    title: 'Mission et Évangélisation',
+    subtitle: 'Porter la Bonne Nouvelle au monde',
+    emoji: '📣',
+    durationDays: 7,
+    premium: true,
+    days: [
+      {
+        dayNum: 1,
+        title: 'Le mandat missionnaire',
+        practice: 'Méditez sur le commandement de Jésus : "Allez, de toutes les nations faites des disciples." Quel est votre champ missionnaire naturel ?',
+        scripture: 'Mt 28,19',
+      },
+      {
+        dayNum: 2,
+        title: 'Le témoignage par la vie',
+        practice: 'Le premier moyen d\'évangéliser est la cohérence de vie. Examinez si votre vie parle de Jésus sans que vous ayez besoin d\'ouvrir la bouche.',
+        scripture: 'Mt 5,16',
+      },
+      {
+        dayNum: 3,
+        title: 'Prier pour les lointains',
+        practice: 'Priez spécifiquement pour trois personnes de votre entourage qui sont loin de Dieu. Demandez que Dieu vous indique comment les approcher.',
+        scripture: '1 Tm 2,4',
+      },
+      {
+        dayNum: 4,
+        title: 'Partager sa foi',
+        practice: 'Cherchez une occasion naturelle de partager votre foi : témoigner de ce que Dieu fait dans votre vie, sans prosélytisme mais avec authenticité.',
+        scripture: '1 P 3,15',
+      },
+      {
+        dayNum: 5,
+        title: 'Servir pour évangéliser',
+        practice: 'La charité est le premier langage de l\'évangélisation. Faites un service remarquable pour quelqu\'un qui ne vous le rendra pas.',
+        scripture: 'Jn 13,35',
+      },
+      {
+        dayNum: 6,
+        title: 'Les peurs de l\'apostolat',
+        practice: 'Quelles peurs vous retiennent d\'évangéliser ? Peur du ridicule ? De blesser ? De ne pas savoir quoi dire ? Confiez ces peurs à l\'Esprit Saint.',
+        scripture: 'Ac 4,31',
+      },
+      {
+        dayNum: 7,
+        title: 'La joie du missionnaire',
+        practice: 'Relisez Evangelii Gaudium §1 : "La joie de l\'Évangile remplit le cœur et toute la vie de ceux qui rencontrent Jésus." Voulez-vous cette joie ?',
+        scripture: 'Ac 8,8',
+      },
+    ],
+  },
+  {
+    id: 'lectio-divina-avancee',
+    title: 'Lectio Divina Avancée',
+    subtitle: 'Approfondir l\'art de la lecture priante',
+    emoji: '📖',
+    durationDays: 7,
+    premium: true,
+    days: [
+      {
+        dayNum: 1,
+        title: 'Lectio — La lecture',
+        practice: 'Lisez Jn 4,1-42 (la Samaritaine) trois fois de suite. La première lecture est informative : que se passe-t-il ? Qui parle à qui ?',
+        scripture: 'Jn 4,10',
+      },
+      {
+        dayNum: 2,
+        title: 'Meditatio — La méditation',
+        practice: 'Reprenez le même texte. Choisissez une phrase ou un mot qui vous a touché. Roulez-le dans votre cœur comme un bonbon. Que vous dit-il ?',
+        scripture: 'Ps 1,2',
+      },
+      {
+        dayNum: 3,
+        title: 'Oratio — La prière',
+        practice: 'La méditation se transforme en prière. À partir du texte de Jean 4, adressez-vous directement à Jésus. Que voulez-vous lui dire ou lui demander ?',
+        scripture: 'Ps 27,8',
+      },
+      {
+        dayNum: 4,
+        title: 'Contemplatio — La contemplation',
+        practice: 'Laissez tomber les mots. Soyez simplement avec Jésus et la Samaritaine. Regardez la scène en silence. Laissez Dieu vous aimer sans rien faire.',
+        scripture: 'Ps 131,2',
+      },
+      {
+        dayNum: 5,
+        title: 'Actio — L\'action',
+        practice: 'La Lectio mène à la vie. Qu\'est-ce que ce texte de la Samaritaine vous demande de faire concrètement ? Quel puits fréquentez-vous qui n\'étanche pas votre soif ?',
+        scripture: 'Jc 1,22',
+      },
+      {
+        dayNum: 6,
+        title: 'La Lectio sur les Épîtres',
+        practice: 'Pratiquez la Lectio sur Rm 8,28-39. Laissez la certitude de l\'amour de Dieu descendre profondément dans votre cœur.',
+        scripture: 'Rm 8,38',
+      },
+      {
+        dayNum: 7,
+        title: 'La Lectio comme style de vie',
+        practice: 'Comment intégrer la Lectio dans votre vie quotidienne ? Choisissez un horaire et un format (5 min ou 20 min) que vous pouvez tenir.',
+        scripture: 'Dt 6,6-7',
+      },
+    ],
+  },
+];
