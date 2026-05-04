@@ -3,7 +3,7 @@ import { AsyncStorage_like } from '@/context/storage';
 
 export type ProductId =
   | 'sophia_premium_monthly'
-  | 'sophia_premium_yearly'
+  | 'sophia_premium_lifetime'
   | 'tip_small'
   | 'tip_medium'
   | 'tip_large';

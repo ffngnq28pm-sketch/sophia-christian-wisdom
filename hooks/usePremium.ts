@@ -3,7 +3,7 @@ import { StoreService, ProductId, PurchaseResult } from '@/services/StoreService
 
 export const FREE_CARD_LIMIT = 50;
 
-export type PremiumPlan = 'monthly' | 'yearly';
+export type PremiumPlan = 'monthly' | 'lifetime';
 
 export interface PremiumState {
   isPremium: boolean;
@@ -17,7 +17,7 @@ export interface PremiumState {
 
 const PLAN_MAP: Record<PremiumPlan, ProductId> = {
   monthly: 'sophia_premium_monthly',
-  yearly: 'sophia_premium_yearly',
+  lifetime: 'sophia_premium_lifetime',
 };
 const TIP_MAP: Record<'small' | 'medium' | 'large', ProductId> = {
   small: 'tip_small',
