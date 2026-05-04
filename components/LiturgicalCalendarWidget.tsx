@@ -11,7 +11,7 @@ import { useLiturgicalCalendar } from '@/hooks/useLiturgicalCalendar';
 
 export function LiturgicalCalendarWidget() {
   const { colors } = useTheme();
-  const { period, periodLabel, periodEmoji, lunarPhase, nextEvent } = useLiturgicalCalendar();
+  const { period, periodLabel, periodEmoji, weekLabel, lunarPhase, nextEvent } = useLiturgicalCalendar();
   const [expanded, setExpanded] = useState(false);
 
   const today = new Date();
@@ -34,7 +34,9 @@ export function LiturgicalCalendarWidget() {
         {/* Date block */}
         <View style={styles.dateBlock}>
           <Text style={[styles.dateMain, { color: colors.textPrimary }]}>{dateStr}</Text>
-          {periodLabel ? (
+          {weekLabel ? (
+            <Text style={[styles.periodName, { color: colors.textAccent }]}>{weekLabel}</Text>
+          ) : periodLabel ? (
             <Text style={[styles.periodName, { color: colors.textAccent }]}>{periodLabel}</Text>
           ) : (
             <Text style={[styles.periodName, { color: colors.textMuted }]}>Temps ordinaire</Text>
@@ -77,10 +79,12 @@ export function LiturgicalCalendarWidget() {
               {lunarPhase.emoji} {lunarPhase.label}
             </Text>
           </View>
-          {periodLabel ? (
+          {(weekLabel || periodLabel) ? (
             <View style={styles.expandedItem}>
               <Text style={[styles.expandedLabel, { color: colors.textMuted }]}>Temps liturgique</Text>
-              <Text style={[styles.expandedValue, { color: colors.textAccent }]}>{periodLabel}</Text>
+              <Text style={[styles.expandedValue, { color: colors.textAccent }]}>
+                {weekLabel || periodLabel}
+              </Text>
             </View>
           ) : null}
           {nextEvent && (

@@ -6,6 +6,7 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
+  Linking,
   Switch,
   TextInput,
 } from 'react-native';
@@ -280,7 +281,7 @@ export default function SettingsScreen() {
                 <Moon size={18} color={accent} />
                 <View>
                   <Text style={[styles.rowTitle, { color: colors.textSecondary }]}>
-                    Mode nuit {isNightMode ? '🌙' : ''}
+                    Mode nuit {isNightMode ? '🌑' : ''}
                   </Text>
                   <Text style={[styles.rowDesc, { color: colors.textMuted }]}>
                     {isNightMode ? 'Actif — filtre ambré' : 'Fond sombre, filtre ambré'}
@@ -385,6 +386,22 @@ export default function SettingsScreen() {
           {/* About */}
           <Text style={[styles.sectionLabel, { color: colors.textMuted }]}>À PROPOS</Text>
           <View style={[styles.section, { backgroundColor: colors.bgSection, borderColor: colors.border }]}>
+            <TouchableOpacity style={styles.row} activeOpacity={0.75} onPress={() => Linking.openURL('https://sophia-christian-wisdom.netlify.app/privacy.html')}>
+              <View style={styles.rowLeft}>
+                <Info size={18} color={accent} />
+                <Text style={[styles.rowTitle, { color: colors.textSecondary }]}>Politique de confidentialité</Text>
+              </View>
+              <ChevronRight size={16} color={colors.textMuted} />
+            </TouchableOpacity>
+            <View style={[styles.separator, { backgroundColor: colors.border }]} />
+            <TouchableOpacity style={styles.row} activeOpacity={0.75} onPress={() => Linking.openURL('https://sophia-christian-wisdom.netlify.app/terms.html')}>
+              <View style={styles.rowLeft}>
+                <Info size={18} color={accent} />
+                <Text style={[styles.rowTitle, { color: colors.textSecondary }]}>Conditions d'utilisation</Text>
+              </View>
+              <ChevronRight size={16} color={colors.textMuted} />
+            </TouchableOpacity>
+            <View style={[styles.separator, { backgroundColor: colors.border }]} />
             <TouchableOpacity style={styles.row} activeOpacity={0.75}>
               <View style={styles.rowLeft}>
                 <Info size={18} color={accent} />

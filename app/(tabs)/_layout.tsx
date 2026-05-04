@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
-import { Sun, BookOpen, Heart, Settings, Cross, Compass } from 'lucide-react-native';
+import { Sun, BookOpen, Heart, Settings, Cross, Compass, GraduationCap } from 'lucide-react-native';
 import { useTheme } from '@/context/ThemeContext';
 import { useI18n } from '@/context/I18nContext';
 
@@ -54,6 +54,13 @@ export default function TabLayout() {
         options={{
           title: t.tabFavorites,
           tabBarIcon: ({ color, size }) => <Heart size={size - 2} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="education"
+        options={{
+          title: 'Savoir',
+          tabBarIcon: ({ color, size }) => <GraduationCap size={size - 2} color={color} />,
         }}
       />
       <Tabs.Screen

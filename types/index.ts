@@ -53,3 +53,69 @@ export type SourceType =
   | 'Hans Urs von Balthasar'
   | 'Bonaventure'
   | 'Teilhard de Chardin';
+
+// ── Education system ─────────────────────────────────────────
+
+export type GradeLevel =
+  | 'Néophyte'
+  | 'Catéchumène'
+  | 'Fidèle'
+  | 'Lecteur'
+  | 'Acolyte'
+  | 'Diacre'
+  | 'Prédicateur'
+  | 'Prêtre'
+  | 'Théologien'
+  | 'Docteur';
+
+export interface Lesson {
+  id: string;
+  moduleId: number;
+  order: number;
+  title: string;
+  subtitle: string;
+  content: string;
+  keyPoints: string[];
+  sacredQuote?: string;
+  sacredSource?: string;
+  duration: number;
+}
+
+export interface EducationModule {
+  id: number;
+  title: string;
+  description: string;
+  icon: string;
+  color: string;
+  lessons: Lesson[];
+}
+
+export type QuizDifficulty = 'facile' | 'moyen' | 'difficile';
+
+export interface QuizQuestion {
+  id: string;
+  moduleId: number;
+  difficulty: QuizDifficulty;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+  source?: string;
+}
+
+export interface ModuleProgress {
+  moduleId: number;
+  lessonsCompleted: string[];
+  quizScores: number[];
+  bestScore: number;
+  unlocked: boolean;
+}
+
+export interface EducationProgress {
+  modules: Record<number, ModuleProgress>;
+  totalQuizAnswered: number;
+  totalCorrect: number;
+  grade: GradeLevel;
+  gradeScore: number;
+  lastActivity: string;
+}

@@ -10,12 +10,10 @@ import { AsyncStorage_like } from '@/context/storage';
 const PREFS_KEY = 'sophia_ambient_prefs_v1';
 const DISMISSED_KEY = 'sophia_audio_banner_dismissed';
 
-// The silence.wav is needed as a URL string for the web unlock trick.
-// On Expo web, require() of an asset resolves to a URL at runtime.
+const SILENCE_B64 = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=';
 const silenceAsset: unknown = require('../assets/audio/silence.wav');
 function getSilenceUrl(): string {
-  if (typeof silenceAsset === 'string') return silenceAsset;
-  return '';
+  return typeof silenceAsset === 'string' ? silenceAsset : SILENCE_B64;
 }
 
 interface Props {

@@ -25,6 +25,18 @@
         ],
         "NSMicrophoneUsageDescription": "Sophia n'utilise pas le microphone.",
         "CFBundleDisplayName": "Sophia"
+      },
+      "privacyManifests": {
+        "NSPrivacyAccessedAPITypes": [
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "CA92.1"
+            ]
+          }
+        ],
+        "NSPrivacyCollectedDataTypes": [],
+        "NSPrivacyTracking": false
       }
     },
     "android": {
@@ -66,7 +78,8 @@
       ]
     ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "baseUrl": "/sophia-christian-wisdom"
     },
     "extra": {
       "router": {},

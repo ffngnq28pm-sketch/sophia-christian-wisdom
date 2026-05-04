@@ -22,6 +22,7 @@ export const AMBIENT_TRACKS = [
 
 export type AmbientId = (typeof AMBIENT_TRACKS)[number]['id'];
 
+const SILENCE_B64 = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=';
 const WEB_UNLOCK_KEY = 'sophia_web_audio_unlocked';
 let _ambientSound: Audio.Sound | null = null;
 let _audioConfigured = false;
@@ -44,7 +45,7 @@ export function unlockWebAudioSync(silenceAssetUrl: string) {
   if (Platform.OS !== 'web' || typeof document === 'undefined') return;
   try {
     const a = document.createElement('audio');
-    a.src = silenceAssetUrl;
+    a.src = silenceAssetUrl || SILENCE_B64;
     a.volume = 0.001;
     a.play().catch(() => {});
     AsyncStorage_like.set(WEB_UNLOCK_KEY, '1');

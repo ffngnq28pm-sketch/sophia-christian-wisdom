@@ -168,11 +168,118 @@ function daysUntilNextEvent(now: Date): { name: string; daysLeft: number } | nul
   return best;
 }
 
+const DAY_NAMES_FR = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+const ORDINALS_FR = ['', '1ère', '2e', '3e', '4e', '5e', '6e', '7e'];
+
+const EASTER_DATES: [number, number, number][] = [
+  [2025, 4, 20],
+  [2026, 4, 5],
+];
+
+const ASH_WEDNESDAY_DATES: [number, number, number][] = [
+  [2025, 3, 5],
+  [2026, 2, 18],
+];
+
+const PENTECOST_DATES: [number, number, number][] = [
+  [2025, 6, 8],
+  [2026, 5, 24],
+];
+
+const ADVENT_START_DATES: [number, number, number][] = [
+  [2025, 11, 30],
+  [2026, 11, 29],
+];
+
+function capitalize(s: string): string {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+function getWeekLabel(now: Date, period: LiturgicalPeriod): string {
+  const t = now.getTime();
+  const dayName = capitalize(DAY_NAMES_FR[now.getDay()]);
+
+  if (period === 'temps-pascal') {
+    for (const [ey, em, ed] of EASTER_DATES) {
+      const easter = new Date(ey, em - 1, ed).getTime();
+      const diff = Math.floor((t - easter) / 86400000);
+      if (diff >= 0 && diff < 50) {
+        const week = Math.floor(diff / 7) + 1;
+        const ord = ORDINALS_FR[week] ?? `${week}e`;
+        return `${dayName} de la ${ord} semaine de Pâques`;
+      }
+    }
+  }
+
+  if (period === 'careme') {
+    // Ash Wednesday exact day
+    for (const [ay, am, ad] of ASH_WEDNESDAY_DATES) {
+      const ashMs = new Date(ay, am - 1, ad).getTime();
+      if (t === ashMs) return 'Mercredi des Cendres';
+    }
+    // Holy week = last 7 days before Easter
+    for (const [ey, em, ed] of EASTER_DATES) {
+      const easterMs = new Date(ey, em - 1, ed).getTime();
+      const holyStart = easterMs - 7 * 86400000;
+      if (t >= holyStart && t < easterMs) return `${dayName} de la Semaine Sainte`;
+    }
+    // Regular Lent weeks
+    for (const [ay, am, ad] of ASH_WEDNESDAY_DATES) {
+      const ashMs = new Date(ay, am - 1, ad).getTime();
+      // Find matching Easter year
+      const easterEntry = EASTER_DATES.find(([ey]) => ey === ay);
+      if (!easterEntry) continue;
+      const easterMs = new Date(easterEntry[0], easterEntry[1] - 1, easterEntry[2]).getTime();
+      if (t >= ashMs && t < easterMs) {
+        const diff = Math.floor((t - ashMs) / 86400000);
+        const week = Math.floor(diff / 7) + 1;
+        const ord = ORDINALS_FR[week] ?? `${week}e`;
+        return `${dayName} de la ${ord} semaine de Carême`;
+      }
+    }
+  }
+
+  if (period === 'avent') {
+    for (const [ay, am, ad] of ADVENT_START_DATES) {
+      const adventMs = new Date(ay, am - 1, ad).getTime();
+      if (t >= adventMs) {
+        const diff = Math.floor((t - adventMs) / 86400000);
+        const week = Math.floor(diff / 7) + 1;
+        const ord = ORDINALS_FR[week] ?? `${week}e`;
+        return `${dayName} du ${ord} dimanche de l'Avent`;
+      }
+    }
+  }
+
+  if (period === 'ordinaire') {
+    // Count weeks since end of most recent Pentecost
+    for (let i = PENTECOST_DATES.length - 1; i >= 0; i--) {
+      const [py, pm, pd] = PENTECOST_DATES[i];
+      const pentMs = new Date(py, pm - 1, pd).getTime();
+      if (t >= pentMs) {
+        // Check next Advent hasn't started
+        const nextAdvent = ADVENT_START_DATES.find(([ay]) => ay === py);
+        if (nextAdvent) {
+          const adventMs = new Date(nextAdvent[0], nextAdvent[1] - 1, nextAdvent[2]).getTime();
+          if (t >= adventMs) continue;
+        }
+        const diff = Math.floor((t - pentMs) / 86400000);
+        const week = Math.floor(diff / 7) + 1;
+        const ord = ORDINALS_FR[week] ?? `${week}e`;
+        return `${dayName} — ${ord} semaine du Temps ordinaire`;
+      }
+    }
+  }
+
+  return '';
+}
+
 export interface LiturgicalCalendarState {
   period: LiturgicalPeriod;
   periodLabel: string;
   periodEmoji: string;
   periodAccent: string;
+  weekLabel: string;
   lunarPhase: { emoji: string; label: string; fraction: number };
   nextEvent: { name: string; daysLeft: number } | null;
 }
@@ -186,6 +293,7 @@ export function useLiturgicalCalendar(): LiturgicalCalendarState {
       periodLabel: PERIOD_LABELS[period],
       periodEmoji: PERIOD_EMOJI[period],
       periodAccent: PERIOD_ACCENT[period],
+      weekLabel: getWeekLabel(now, period),
       lunarPhase: getLunarPhase(now),
       nextEvent: daysUntilNextEvent(now),
     };
