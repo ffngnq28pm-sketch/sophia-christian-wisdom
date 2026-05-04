@@ -1,0 +1,19 @@
+{
+  "name": "Sophia — Sagesse Chrétienne",
+  "short_name": "Sophia",
+  "description": "365 sagesses de la Bible et de la tradition chrétienne",
+  "start_url": "/sophia-christian-wisdom/",
+  "scope": "/sophia-christian-wisdom/",
+  "display": "standalone",
+  "background_color": "#0F0B18",
+  "theme_color": "#C4954A",
+  "orientation": "portrait",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "/sophia-christian-wisdom/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}
