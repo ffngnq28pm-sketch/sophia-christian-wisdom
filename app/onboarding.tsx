@@ -97,6 +97,25 @@ export default function OnboardingScreen() {
               />
             </View>
 
+            <TouchableOpacity
+              style={[styles.nextBtn, !name.trim() && styles.nextBtnDisabled]}
+              onPress={handleNameNext}
+              disabled={!name.trim()}
+              activeOpacity={0.85}
+            >
+              <Text style={styles.nextBtnText}>Continuer</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => setStep('theme')} style={styles.skipBtn} activeOpacity={0.7}>
+              <Text style={styles.skipText}>Passer</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View style={styles.stepContent}>
+            <Text style={styles.stepTitle}>
+              {name.trim() ? `Bonjour ${name.trim()}` : 'Votre intention'}
+            </Text>
+
             {nameMeaning && (
               <View style={styles.meaningCard}>
                 <View style={styles.meaningHeader}>
@@ -126,24 +145,6 @@ export default function OnboardingScreen() {
               </View>
             )}
 
-            <TouchableOpacity
-              style={[styles.nextBtn, !name.trim() && styles.nextBtnDisabled]}
-              onPress={handleNameNext}
-              disabled={!name.trim()}
-              activeOpacity={0.85}
-            >
-              <Text style={styles.nextBtnText}>Continuer</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => setStep('theme')} style={styles.skipBtn} activeOpacity={0.7}>
-              <Text style={styles.skipText}>Passer</Text>
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <View style={styles.stepContent}>
-            <Text style={styles.stepTitle}>
-              {name.trim() ? `Bonjour ${name.trim()}` : 'Votre intention'}
-            </Text>
             <Text style={styles.stepSubtitle}>
               Choisissez un thème sur lequel vous concentrer ce mois-ci.{'\n'}
               Vos sagesses quotidiennes y seront adaptées.
