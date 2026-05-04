@@ -87,12 +87,12 @@ export const FOCUS_THEMES: FocusTheme[] = [
 ];
 
 export const FOCUS_THEME_ICONS: Record<FocusTheme, string> = {
-  Patience: '🕊️',
-  Gratitude: '🙏',
-  Amour: '❤️',
+  Patience: '🌊',
+  Gratitude: '🌸',
+  Amour: '🤝',
   Foi: '✝️',
-  Sagesse: '✦',
-  Paix: '☮️',
+  Sagesse: '⚖️',
+  Paix: '🕊️',
 };
 
 export const NOTIF_PRESETS: { key: NotifPreset; label: string; time: string; desc: string }[] = [

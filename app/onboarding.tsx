@@ -19,12 +19,12 @@ import { findChristianNameMeaning, ChristianName } from '@/data/christianNames';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const THEME_CONFIG: Record<FocusTheme, { icon: string; desc: string; color: string }> = {
-  Patience:    { icon: '🕊️', desc: 'Développer la persévérance et la sérénité', color: '#4A7FA5' },
+  Patience:    { icon: '🌊', desc: 'Développer la persévérance et la sérénité', color: '#4A7FA5' },
   Gratitude:   { icon: '🌸', desc: 'Cultiver la reconnaissance chaque jour',    color: '#A5664A' },
-  Amour:       { icon: '✦',  desc: 'Ouvrir le cœur à la charité évangélique',  color: '#C4954A' },
+  Amour:       { icon: '🤝', desc: 'Ouvrir le cœur à la charité évangélique',  color: '#C4954A' },
   Foi:         { icon: '✝️', desc: 'Renforcer la confiance en Dieu',            color: '#5A7A5A' },
-  Sagesse:     { icon: '◈',  desc: 'Chercher la connaissance et la vérité',     color: '#7A5A9A' },
-  Paix:        { icon: '◯',  desc: 'Trouver la tranquillité intérieure',        color: '#4A8A7A' },
+  Sagesse:     { icon: '⚖️', desc: 'Chercher la connaissance et la vérité',     color: '#7A5A9A' },
+  Paix:        { icon: '🕊️', desc: 'Trouver la tranquillité intérieure',        color: '#4A8A7A' },
 };
 
 export default function OnboardingScreen() {
