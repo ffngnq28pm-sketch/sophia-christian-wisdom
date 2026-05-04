@@ -69,6 +69,7 @@ export default function RootLayout() {
               <Stack.Screen name="onboarding" options={{ animation: 'fade' }} />
               <Stack.Screen name="divine-names" options={{ animation: 'slide_from_right' }} />
               <Stack.Screen name="church-fathers" options={{ animation: 'slide_from_right' }} />
+              <Stack.Screen name="psalms" options={{ animation: 'slide_from_right' }} />
               <Stack.Screen name="support" options={{ animation: 'slide_from_bottom', presentation: 'modal' }} />
               <Stack.Screen name="+not-found" />
             </Stack>

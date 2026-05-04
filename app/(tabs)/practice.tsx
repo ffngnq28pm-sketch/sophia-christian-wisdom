@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { ChevronRight } from 'lucide-react-native';
+import { router } from 'expo-router';
 import { useTheme } from '@/context/ThemeContext';
 import { usePremium } from '@/hooks/usePremium';
 import { usePractice } from '@/hooks/usePractice';
@@ -153,6 +155,25 @@ export default function PracticeScreen() {
               onReset={resetPath}
             />
           </View>
+
+          {/* Ressources spirituelles */}
+          <View style={styles.section}>
+            <Text style={[styles.sectionTitle, { color: colors.textSecondary, fontFamily: 'Cinzel_400Regular' }]}>
+              RESSOURCES
+            </Text>
+            <TouchableOpacity
+              style={[styles.resourceRow, { backgroundColor: colors.bgCard, borderColor: colors.border }]}
+              onPress={() => router.push('/psalms' as any)}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.resourceIcon}>📜</Text>
+              <View style={styles.resourceInfo}>
+                <Text style={[styles.resourceTitle, { color: colors.textPrimary }]}>Psaumes & Prières</Text>
+                <Text style={[styles.resourceSub, { color: colors.textMuted }]}>150 Psaumes, Notre Père, Ave Maria…</Text>
+              </View>
+              <ChevronRight size={18} color={colors.textMuted} />
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </SafeAreaView>
 
@@ -241,4 +262,17 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     marginBottom: 14,
   },
+  resourceRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 14,
+    borderWidth: 1,
+    padding: 16,
+    marginBottom: 10,
+    gap: 14,
+  },
+  resourceIcon: { fontSize: 28, width: 36 },
+  resourceInfo: { flex: 1 },
+  resourceTitle: { fontFamily: 'Lato_700Bold', fontSize: 15, marginBottom: 2 },
+  resourceSub: { fontFamily: 'Lato_400Regular', fontSize: 12 },
 });

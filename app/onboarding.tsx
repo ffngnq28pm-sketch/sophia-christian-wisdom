@@ -14,6 +14,7 @@ import { StatusBar } from 'expo-status-bar';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { useUserProfile, FOCUS_THEMES, FocusTheme } from '@/context/UserProfileContext';
+import { findChristianNameMeaning, ChristianName } from '@/data/christianNames';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -31,6 +32,12 @@ export default function OnboardingScreen() {
   const [step, setStep] = useState<'name' | 'theme'>('name');
   const [name, setName] = useState('');
   const [chosen, setChosen] = useState<FocusTheme | null>(null);
+  const [nameMeaning, setNameMeaning] = useState<ChristianName | null>(null);
+
+  function handleNameChange(text: string) {
+    setName(text);
+    setNameMeaning(findChristianNameMeaning(text));
+  }
 
   function handleNameNext() {
     if (step === 'name') {
@@ -82,13 +89,42 @@ export default function OnboardingScreen() {
                 placeholder="Votre prénom..."
                 placeholderTextColor="rgba(196,149,74,0.35)"
                 value={name}
-                onChangeText={setName}
+                onChangeText={handleNameChange}
                 autoFocus
                 returnKeyType="next"
                 onSubmitEditing={handleNameNext}
                 selectionColor="#C4954A"
               />
             </View>
+
+            {nameMeaning && (
+              <View style={styles.meaningCard}>
+                <View style={styles.meaningHeader}>
+                  <Text style={styles.meaningLatin}>{nameMeaning.latin}</Text>
+                  <View style={styles.originBadge}>
+                    <Text style={styles.originBadgeText}>{nameMeaning.origin}</Text>
+                  </View>
+                </View>
+                <Text style={styles.meaningText}>{nameMeaning.meaning}</Text>
+                {nameMeaning.patron && (
+                  <View style={styles.meaningRow}>
+                    <Text style={styles.meaningLabel}>✝ Patron</Text>
+                    <Text style={styles.meaningValue}>{nameMeaning.patron}</Text>
+                  </View>
+                )}
+                {nameMeaning.feast && (
+                  <View style={styles.meaningRow}>
+                    <Text style={styles.meaningLabel}>📅 Fête</Text>
+                    <Text style={styles.meaningValue}>{nameMeaning.feast}</Text>
+                  </View>
+                )}
+                {nameMeaning.virtue && (
+                  <View style={styles.virtueBadge}>
+                    <Text style={styles.virtueBadgeText}>{nameMeaning.virtue}</Text>
+                  </View>
+                )}
+              </View>
+            )}
 
             <TouchableOpacity
               style={[styles.nextBtn, !name.trim() && styles.nextBtnDisabled]}
@@ -300,5 +336,87 @@ const styles = StyleSheet.create({
   dotActive: {
     width: 24,
     backgroundColor: '#C4954A',
+  },
+  meaningCard: {
+    width: '100%',
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(74,127,165,0.35)',
+    backgroundColor: 'rgba(74,127,165,0.08)',
+    padding: 16,
+    marginBottom: 20,
+    gap: 8,
+  },
+  meaningHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginBottom: 4,
+  },
+  meaningLatin: {
+    fontFamily: 'Cinzel_700Bold',
+    fontSize: 13,
+    color: '#4A7FA5',
+    letterSpacing: 0.5,
+    flexShrink: 1,
+  },
+  originBadge: {
+    borderRadius: 6,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    backgroundColor: 'rgba(200,169,110,0.15)',
+    borderWidth: 1,
+    borderColor: 'rgba(200,169,110,0.4)',
+  },
+  originBadgeText: {
+    fontFamily: 'Lato_700Bold',
+    fontSize: 10,
+    color: '#C8A96E',
+    letterSpacing: 0.5,
+  },
+  meaningText: {
+    fontFamily: 'Lato_400Regular',
+    fontSize: 13,
+    color: '#B0B8CC',
+    lineHeight: 20,
+    fontStyle: 'italic',
+  },
+  meaningRow: {
+    flexDirection: 'row',
+    gap: 8,
+    alignItems: 'flex-start',
+  },
+  meaningLabel: {
+    fontFamily: 'Lato_700Bold',
+    fontSize: 11,
+    color: '#4A7FA5',
+    minWidth: 60,
+    marginTop: 1,
+  },
+  meaningValue: {
+    fontFamily: 'Lato_400Regular',
+    fontSize: 12,
+    color: '#8A8FA8',
+    flex: 1,
+    lineHeight: 18,
+  },
+  virtueBadge: {
+    alignSelf: 'flex-start',
+    borderRadius: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    backgroundColor: 'rgba(74,127,165,0.2)',
+    borderWidth: 1,
+    borderColor: 'rgba(74,127,165,0.5)',
+    marginTop: 4,
+  },
+  virtueBadgeText: {
+    fontFamily: 'Lato_700Bold',
+    fontSize: 11,
+    color: '#4A7FA5',
+    letterSpacing: 0.8,
+    textTransform: 'uppercase',
   },
 });
