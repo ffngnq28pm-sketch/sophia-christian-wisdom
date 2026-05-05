@@ -23,7 +23,8 @@
           "audio"
         ],
         "NSMicrophoneUsageDescription": "Sophia n'utilise pas le microphone.",
-        "CFBundleDisplayName": "Sophia"
+        "CFBundleDisplayName": "Sophia",
+        "ITSAppUsesNonExemptEncryption": false
       },
       "privacyManifests": {
         "NSPrivacyAccessedAPITypes": [
