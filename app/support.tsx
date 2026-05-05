@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import {
   View, Text, SafeAreaView, TouchableOpacity,
-  StyleSheet, ScrollView, ActivityIndicator,
+  StyleSheet, ScrollView, ActivityIndicator, Linking,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { ChevronLeft, Heart, Star, Sparkles } from 'lucide-react-native';
+import { ChevronLeft, Heart, Star, Sparkles, Mail } from 'lucide-react-native';
 import { router } from 'expo-router';
 import { useTheme } from '@/context/ThemeContext';
 import { usePremium } from '@/hooks/usePremium';
@@ -141,6 +141,19 @@ export default function SupportScreen() {
             </Text>
           </View>
 
+          <TouchableOpacity
+            style={[styles.contactBtn, { backgroundColor: colors.bgSection, borderColor: colors.border }]}
+            onPress={() => Linking.openURL('mailto:support@sophia-app.fr?subject=Sophia%20-%20Retour%20utilisateur')}
+            activeOpacity={0.8}
+          >
+            <Mail size={18} color={accent} />
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.contactTitle, { color: colors.textPrimary }]}>Écrire à l'équipe</Text>
+              <Text style={[styles.contactSub, { color: colors.textMuted }]}>support@sophia-app.fr</Text>
+            </View>
+            <ChevronLeft size={16} color={colors.textMuted} style={{ transform: [{ rotate: '180deg' }] }} />
+          </TouchableOpacity>
+
           <View style={styles.footer}>
             <Text style={[styles.footerCross, { color: 'rgba(196,149,74,0.25)' }]}>✝</Text>
             <Text style={[styles.footerText, { color: colors.textMuted }]}>
@@ -182,6 +195,9 @@ const styles = StyleSheet.create({
   customText: { fontFamily: 'Lato_700Bold', fontSize: 14 },
   msgBox: { flexDirection: 'row', gap: 12, marginHorizontal: 20, padding: 16, borderRadius: 14, borderWidth: 1, marginBottom: 28, alignItems: 'flex-start' },
   msgText: { flex: 1, fontFamily: 'Lato_400Regular', fontSize: 12, lineHeight: 20 },
+  contactBtn: { flexDirection: 'row', alignItems: 'center', gap: 14, marginHorizontal: 20, marginBottom: 24, padding: 16, borderRadius: 14, borderWidth: 1 },
+  contactTitle: { fontFamily: 'Lato_700Bold', fontSize: 14, marginBottom: 2 },
+  contactSub: { fontFamily: 'Lato_400Regular', fontSize: 12 },
   footer: { alignItems: 'center', gap: 8 },
   footerCross: { fontSize: 36 },
   footerText: { fontFamily: 'Lato_400Regular', fontStyle: 'italic', fontSize: 11, textAlign: 'center', paddingHorizontal: 40, lineHeight: 18 },

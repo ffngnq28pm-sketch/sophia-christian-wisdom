@@ -26,10 +26,16 @@ export type Theme =
   | 'Humilité'
   | 'Pardon'
   | 'Lumière'
-  | 'Grâce';
+  | 'Grâce'
+  | 'Modération'
+  | 'Tempérance';
 
 export type SourceType =
   | 'Bible'
+  | 'Évangiles'
+  | 'Épîtres de Paul'
+  | 'Psaumes'
+  | "Augustin d'Hippone"
   | 'Saint Augustin'
   | "Thomas d'Aquin"
   | 'Jean de la Croix'
