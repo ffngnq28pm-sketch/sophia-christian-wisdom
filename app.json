@@ -20,7 +20,6 @@
       "buildNumber": "1",
       "infoPlist": {
         "UIBackgroundModes": [
-          "audio",
           "audio"
         ],
         "NSMicrophoneUsageDescription": "Sophia n'utilise pas le microphone.",
@@ -47,8 +46,6 @@
         "backgroundColor": "#0F0B18"
       },
       "permissions": [
-        "android.permission.FOREGROUND_SERVICE",
-        "android.permission.MODIFY_AUDIO_SETTINGS",
         "android.permission.FOREGROUND_SERVICE",
         "android.permission.MODIFY_AUDIO_SETTINGS"
       ]
@@ -88,9 +85,7 @@
       }
     },
     "owner": "charif759491",
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    },
+    "runtimeVersion": "1.0.0",
     "updates": {
       "url": "https://u.expo.dev/ed10aea2-7dac-49ce-9c44-fc3b5186bf3f"
     }
