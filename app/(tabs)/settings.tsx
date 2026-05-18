@@ -66,7 +66,7 @@ export default function SettingsScreen() {
                 <View style={styles.premiumLeft}>
                   <View style={styles.starBadge}><Star size={16} color="#C4954A" fill="#C4954A" /></View>
                   <View>
-                    <Text style={styles.premiumTitle}>Sophia Premium</Text>
+                    <Text style={styles.premiumTitle}>Olivia Premium</Text>
                     <Text style={styles.premiumDesc}>Accédez à la sagesse complète</Text>
                   </View>
                 </View>
@@ -76,7 +76,7 @@ export default function SettingsScreen() {
           ) : (
             <View style={[styles.premiumActive, { borderColor: 'rgba(196,149,74,0.25)', backgroundColor: 'rgba(196,149,74,0.08)' }]}>
               <Star size={16} color="#C4954A" fill="#C4954A" />
-              <Text style={[styles.premiumActiveText, { color: accent }]}>Sophia Premium actif</Text>
+              <Text style={[styles.premiumActiveText, { color: accent }]}>Olivia Premium actif</Text>
             </View>
           )}
 
@@ -372,7 +372,7 @@ export default function SettingsScreen() {
                 <Heart size={18} color={accent} />
                 <View>
                   <Text style={[styles.rowTitle, { color: colors.textSecondary }]}>
-                    ❤️ Soutenir Sophia
+                    ❤️ Soutenir Olivia
                   </Text>
                   <Text style={[styles.rowDesc, { color: colors.textMuted }]}>
                     Contribuer à enrichir cette bibliothèque
@@ -405,17 +405,17 @@ export default function SettingsScreen() {
             <TouchableOpacity style={styles.row} activeOpacity={0.75}>
               <View style={styles.rowLeft}>
                 <Info size={18} color={accent} />
-                <Text style={[styles.rowTitle, { color: colors.textSecondary }]}>À propos de Sophia</Text>
+                <Text style={[styles.rowTitle, { color: colors.textSecondary }]}>À propos d'Olivia</Text>
               </View>
               <ChevronRight size={16} color={colors.textMuted} />
             </TouchableOpacity>
           </View>
 
           <View style={styles.footer}>
-            <Text style={[styles.footerCross, { color: colors.textMuted }]}>✝</Text>
-            <Text style={[styles.footerTitle, { color: colors.textMuted }]}>Sophia · Σοφία</Text>
+            <Text style={[styles.footerCross, { color: colors.textMuted }]}>🕊</Text>
+            <Text style={[styles.footerTitle, { color: colors.textMuted }]}>Olivia</Text>
             <Text style={[styles.footerText, { color: colors.textMuted }]}>Version 1.0.0</Text>
-            <Text style={[styles.footerTagline, { color: colors.textMuted }]}>Sagesse éternelle — chaque jour.</Text>
+            <Text style={[styles.footerTagline, { color: colors.textMuted }]}>Sagesse et paix — chaque jour.</Text>
           </View>
         </ScrollView>
       </SafeAreaView>

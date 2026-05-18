@@ -143,7 +143,7 @@ export function PremiumPaywall({ visible, onClose }: Props) {
           >
             <LinearGradient colors={['#D4A85A', '#C4954A', '#B08040']} style={styles.ctaGradient} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
               <Text style={styles.ctaText}>
-                {isLoading ? 'Traitement…' : plan === 'lifetime' ? 'Débloquer tout à vie — 39,99€' : 'Rejoindre Sophia Premium — 4,99€ / mois'}
+                {isLoading ? 'Traitement…' : plan === 'lifetime' ? 'Débloquer tout à vie — 39,99€' : 'Rejoindre Olivia Premium — 4,99€ / mois'}
               </Text>
             </LinearGradient>
           </TouchableOpacity>

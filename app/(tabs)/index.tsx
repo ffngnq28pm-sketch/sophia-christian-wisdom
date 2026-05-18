@@ -73,7 +73,7 @@ export default function HomeScreen() {
     month: 'long',
   });
 
-  const greeting = profile.firstName ? `Bonjour ${profile.firstName}` : 'Sophia · Σοφία';
+  const greeting = profile.firstName ? `Bonjour ${profile.firstName}` : 'Olivia';
 
   const onScroll = useCallback(
     (e: NativeSyntheticEvent<NativeScrollEvent>) => {

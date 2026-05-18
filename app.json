@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "Sophia — Σοφία",
+    "name": "Olivia",
     "slug": "sophia-christian-wisdom",
     "version": "1.0.0",
-    "description": "Sagesse chrétienne au quotidien — citations, chapelet, calendrier liturgique et méditations.",
+    "description": "Sagesse chrétienne au quotidien — paix, contemplation et soin de la création. Olivia, l'olivier qui veille.",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "sophia",
@@ -22,8 +22,8 @@
         "UIBackgroundModes": [
           "audio"
         ],
-        "NSMicrophoneUsageDescription": "Sophia n'utilise pas le microphone.",
-        "CFBundleDisplayName": "Sophia",
+        "NSMicrophoneUsageDescription": "Olivia n'utilise pas le microphone.",
+        "CFBundleDisplayName": "Olivia",
         "ITSAppUsesNonExemptEncryption": false
       },
       "privacyManifests": {

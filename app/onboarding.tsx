@@ -70,9 +70,9 @@ export default function OnboardingScreen() {
       />
 
       <View style={styles.topOrnament}>
-        <Text style={styles.crossLogo}>✝</Text>
-        <Text style={styles.logoTitle}>Sophia</Text>
-        <Text style={styles.logoSub}>ΣΟΦΙΑ · SAGESSE</Text>
+        <Text style={styles.crossLogo}>🕊</Text>
+        <Text style={styles.logoTitle}>Olivia</Text>
+        <Text style={styles.logoSub}>SAGESSE · PAIX · CRÉATION</Text>
       </View>
 
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
