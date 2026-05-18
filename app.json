@@ -11,8 +11,8 @@
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash-icon.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#0F0B18"
+      "resizeMode": "contain",
+      "backgroundColor": "#1B2B4D"
     },
     "ios": {
       "supportsTablet": false,
@@ -44,7 +44,7 @@
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
-        "backgroundColor": "#0F0B18"
+        "backgroundColor": "#1B2B4D"
       },
       "permissions": [
         "android.permission.FOREGROUND_SERVICE",
@@ -70,7 +70,7 @@
         "expo-notifications",
         {
           "icon": "./assets/images/icon.png",
-          "color": "#0F0B18",
+          "color": "#1B2B4D",
           "sounds": []
         }
       ]
