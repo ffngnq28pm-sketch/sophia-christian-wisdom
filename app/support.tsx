@@ -143,13 +143,13 @@ export default function SupportScreen() {
 
           <TouchableOpacity
             style={[styles.contactBtn, { backgroundColor: colors.bgSection, borderColor: colors.border }]}
-            onPress={() => Linking.openURL('mailto:support@sophia-app.fr?subject=Sophia%20-%20Retour%20utilisateur')}
+            onPress={() => Linking.openURL('mailto:ShadowstepSociety@gmail.com?subject=Olivia%20-%20Retour%20utilisateur')}
             activeOpacity={0.8}
           >
             <Mail size={18} color={accent} />
             <View style={{ flex: 1 }}>
               <Text style={[styles.contactTitle, { color: colors.textPrimary }]}>Écrire à l'équipe</Text>
-              <Text style={[styles.contactSub, { color: colors.textMuted }]}>support@sophia-app.fr</Text>
+              <Text style={[styles.contactSub, { color: colors.textMuted }]}>ShadowstepSociety@gmail.com</Text>
             </View>
             <ChevronLeft size={16} color={colors.textMuted} style={{ transform: [{ rotate: '180deg' }] }} />
           </TouchableOpacity>
