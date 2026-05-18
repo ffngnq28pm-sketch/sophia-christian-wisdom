@@ -61,6 +61,19 @@
       "expo-font",
       "expo-web-browser",
       [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#1B2B4D",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "dark": {
+            "backgroundColor": "#1B2B4D",
+            "image": "./assets/images/splash-icon.png"
+          }
+        }
+      ],
+      [
         "expo-av",
         {
           "microphonePermission": false
