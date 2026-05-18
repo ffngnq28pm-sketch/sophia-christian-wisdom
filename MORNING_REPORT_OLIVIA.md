@@ -2,6 +2,7 @@
 
 > Session : nuit du 2026-05-18 au 2026-05-19
 > Branche : `olivia-rebrand` (depuis `main`)
+> Dernière passe : 2026-05-19 (matin) — décisions finales appliquées
 
 ## 📊 État global
 
@@ -9,98 +10,90 @@
 |---|---|
 | 2.1 Discovery Sophia | ✅ |
 | 2.2-2.3 Plan + identité | ✅ (6 icônes, 3 palettes, plan complet dans OLIVIA_PLAN.md) |
-| 2.4 Rebrand mécanique | ✅ (option A : bundle ID inchangé) |
+| 2.4 Rebrand mécanique | ✅ |
 | 2.5 Onglet Création | ✅ |
 | 2.6 Comparaison Charif/Sophia | ✅ (dans OLIVIA_PLAN.md §5) |
-| 2.7 Ce report | ✅ |
+| 2.7 Décisions finales appliquées | ✅ (palette A1, icône B, bundle olivia, prénoms) |
 
-## 🎨 Décisions design — à choisir
+## ✅ Décisions finales appliquées
 
-### 1. Palette (3 options) — voir OLIVIA_PLAN.md §2.3
-- **A** Olive profond (#202C1C + sauge + or) — recommandé
-- **B** Sauge méditerranéenne (#1B2418 + sauge moyen)
-- **C** Vert forêt + olive vif
+### 1. Palette : A1 Olivier Byzantin
+Appliquée à `context/ThemeContext.tsx` (dark / light / sepia).
 
-### 2. Icône finale — 6 concepts dans `assets/olivia-icons/`
-- `01_branch.png` — branche stylisée
-- `02_tree.png` — olivier silhouette + halo
-- `03_dove.png` — colombe + rameau (Gn 8) ← **recommandé** (référence biblique forte)
-- `04_olive.png` — olive close-up
-- `05_cross_vine.png` — croix + vigne
-- `06_mount.png` — Mont des Oliviers
+| Token | Dark (principal) | Light | Sepia |
+|---|---|---|---|
+| bg | `#1B2B4D` lapis profond | `#EDE4D0` ivoire | `#1F2A14` olive sombre |
+| bgCard | `#243A5E` | `#F5EFE0` | `#293617` |
+| textPrimary | `#EDE4D0` ivoire | `#1B2B4D` lapis | `#EDE4D0` |
+| textSecondary | `#CDC4B0` | `#3D5224` olive | `#CDC4B0` |
+| textAccent | `#DCB450` or clair | `#B8902D` or vieilli | `#DCB450` |
 
-Ouvre-les dans Finder : `open /Users/charifhachichi/Documents/Claude/Sophia/assets/olivia-icons/`
+### 2. Icône finale
+- Source : `~/Downloads/olivia-icon.png` (1024×1024, 68 KB)
+- Croix latine or sur fond lapis profond + « Olivia » en italique
+- Appliquée à `assets/images/icon.png` et `assets/images/splash-icon.png`
+- Pas de prebuild iOS (`ios/`) — projet Expo managé, tout est généré au build
 
-### 3. Bundle ID
-- **A** garder `com.sophia.christianwisdom` (recommandé si l'app est déjà sur ASC/store)
-- **B** nouveau `com.charif.olivia` (clean, mais re-setup complet)
+### 3. Splash screen
+- `splash.backgroundColor` : `#0F0B18` → `#1B2B4D` (lapis profond)
+- `splash.resizeMode` : `cover` → `contain` (icône centrée propre)
+- Android `adaptiveIcon.backgroundColor` aligné sur lapis
+- Notifications `color` aligné sur lapis
 
-À décider en fonction de l'état App Store Connect de Sophia (jamais soumise vs déjà publiée).
+### 4. Bundle ID + scheme
+- `ios.bundleIdentifier` : `com.sophia.christianwisdom` → **`com.charif.olivia`**
+- `android.package` aligné
+- `scheme` : `sophia` → `olivia`
+- `slug` (`sophia-christian-wisdom`) et `extra.eas.projectId` inchangés → rename EAS à faire manuellement post-ship
 
-### 4. Nom de l'onglet Création
-- "Création" (actuel)
-- "Notre Maison" (Laudato Si')
-- "Don"
+### 5. Tagline et nom de l'onglet (déjà appliqués)
+- Tagline : « Sagesse, paix et création — chaque jour. »
+- Onglet : « Création » conservé
+- Tab bar : 8 tabs conservées pour test sur device (cf. action user demain)
 
-### 5. Sous-titre Création
-- "Préserver la beauté du don" (actuel)
-- "Notre maison commune"
-- "Aimer ce qui a été créé"
+### 6. Prénoms chrétiens (`data/christianNames.ts`)
+Ajout de deux entrées féminines :
+- **Olivia** — Latin *Oliva*, l'olivier. Référence Genèse 8,11 (rameau de la colombe), onction sacrée, Mont des Oliviers. Patronne : Sainte Olive de Palerme (10 juin). Vertu : Paix.
+- **Esperanza** — Latin *Spes*, Espérance. Vertu théologale (1 Co 13,13 ; Rm 12,12). Patronne : Sainte Espérance (Elpis), fille de sainte Sophie. Vertu : Espérance.
 
-### 6. Tab bar overcrowding (8 tabs c'est trop)
-- Garder 5 (Aujourd'hui · Bibliothèque · Création · Favoris · Réglages) et déplacer Carême/Pratique/Savoir vers un menu Plus
-- OU rationaliser : fusionner Carême → Bibliothèque (filtre saisonnier), Pratique + Savoir → un seul tab "Cheminement"
+Détection auto via `findChristianNameMeaning` (case + accent insensitive) → fonctionnera lors de l'onboarding sans modification supplémentaire.
 
-## 📁 Fichiers créés
+## 📦 Commits (branche `olivia-rebrand`)
 
-- `app/(tabs)/creation.tsx` — onglet Création
-- `data/creation_verses.json` — 55 versets bibliques
-- `data/creation_gestures.json` — 40 gestes éco-quotidiens
-- `data/creation_saints.json` — 15 saints (François, Hildegarde, Kateri, etc.)
-- `assets/olivia-icons/*.png` — 6 concepts
-- `OLIVIA_PLAN.md` — plan complet
-
-## 📝 Fichiers modifiés
-
-- `app.json` — name "Olivia", description, perm strings
-- `app/(tabs)/_layout.tsx` — ajout tab Création (Leaf icon)
-- `app/(tabs)/index.tsx` — greeting "Olivia"
-- `app/(tabs)/settings.tsx` — Premium label, footer, Soutenir
-- `app/onboarding.tsx` — logo 🕊 Olivia
-- `components/CardActions.tsx` — signature partage
-- `components/PremiumBanner.tsx` — Premium label
-- `components/PremiumPaywall.tsx` — CTA label
-- `context/I18nContext.tsx` — FR/EN values
-- `.gitignore` — étendu (dist, .netlify, .expo)
+```
+b9285174 feat(olivia): add Olivia + Esperanza to Christian names
+a2f89729 chore(olivia): bundle ID com.charif.olivia
+b36b669c feat(olivia): apply A1 Byzantine palette to theme
+e150db34 feat(olivia): apply icon B + splash lapis profond
+```
 
 ## ✅ Status compilation
 
 ```
-$ npx tsc --noEmit
-EXIT: 0
+$ npx tsc --noEmit       → EXIT 0
+$ npx expo-doctor        → 16/17 checks passed
+  (seul fail : .expo/ pas dans .gitignore — sans rapport)
 ```
 
-## ⚠️ Risques identifiés
+## ⚠️ Risques résiduels (inchangés depuis hier soir)
 
 1. **lib/supabase.ts** : comment mentionne Sophia mais "does not use Supabase". À auditer.
 2. **URLs publiques** privacy/terms hébergées sur `ffngnq28pm-sketch.github.io/sophia-christian-wisdom/` — toujours valides mais le nom contient sophia.
 3. **Email support** : `support@sophia-app.fr` — domaine actif ? À migrer vers olivia ou conserver pour compat.
-4. **Tab bar à 8 entries** : UX problématique sur petits écrans (cf décision 6).
-5. **Pas de refactor des classes/types/identifiants techniques** — gardés pour ne pas casser (suit la consigne user).
-6. **Assets audio** non commitsi le user souhaite les conserver, à committer manuellement (`assets/audio/*.wav`).
+4. **Pas de refactor des classes/types/identifiants techniques** — gardés pour ne pas casser.
+5. **Assets audio** non commités. Si le user souhaite les conserver, à committer manuellement (`assets/audio/*.wav`).
 
-## 🚀 Prochaines étapes à mon réveil
+## 🚀 Prochaines étapes pour l'utilisateur au réveil
 
-1. Choisir palette + icône + bundle ID + nom Création
-2. Si bundle ID B (clean) : créer nouvelle entrée ASC + nouveau projet EAS
-3. Générer icône finale 1024×1024 → `assets/images/icon.png` + splash matching
-4. Décider du sort de la tab bar (réduire à 5 ou utiliser menu)
-5. Faire un build dev sur device pour validation visuelle de l'onglet Création
-6. Préparer EAS build TestFlight V1
+1. **Brancher l'iPhone et faire un test simulateur/device** pour valider le rendu visuel de la palette A1 (lapis + ivoire + or) et de la nouvelle icône → c'est là que se voient les défauts éventuels (contraste, lisibilité textuelle sur fond lapis).
+2. **Décider après essai** si on garde les 8 tabs ou si on les rationalise (réduction à 5 + menu Plus, ou fusion Carême/Pratique/Savoir).
+3. **Créer manuellement la nouvelle entrée App Store Connect** pour `com.charif.olivia` (nouveau bundle, nouvelle app side-by-side avec Charif). Penser à :
+   - Nouvelle app dans ASC (réutiliser l'équipe Apple Developer existante)
+   - Nouveau Subscription Group si Premium (sinon partager avec Charif via App Group)
+   - Nouvelle entrée EAS (`eas init` dans le repo Olivia une fois prêt) — l'actuel `projectId` pointe encore vers Sophia
+4. **Préparer le binaire V1 Olivia** : archive Xcode (après `npx expo prebuild --clean` qui régénérera `ios/` à partir d'app.json), signing avec Team `8BDCCST69F`, upload TestFlight.
 
 ## 📐 Couverture i18n Olivia
 
 L'i18n FR/EN existe déjà côté Sophia (`context/I18nContext.tsx`).
 Les nouveaux strings du tab Création sont **hardcodés en FR** dans `creation.tsx` — à externaliser en V1.1 si la version EN est confirmée prioritaire.
-
-Keys i18n updated : `aboutSophia`, `premiumTitle`, `premiumActive`, `tagline` (FR + EN).
