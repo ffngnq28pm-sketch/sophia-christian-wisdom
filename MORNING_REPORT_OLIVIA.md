@@ -96,3 +96,37 @@ $ npx expo-doctor        → 16/17 checks passed
 
 L'i18n FR/EN existe déjà côté Sophia (`context/I18nContext.tsx`).
 Les nouveaux strings du tab Création sont **hardcodés en FR** dans `creation.tsx` — à externaliser en V1.1 si la version EN est confirmée prioritaire.
+
+## 🌐 Web preview
+
+- **URL publique** : https://ffngnq28pm-sketch.github.io/olivia-preview/
+- **Repo de deploy** : https://github.com/ffngnq28pm-sketch/olivia-preview (public)
+- **Date du déploiement** : 2026-05-19
+- **Bundle size** : 6.2 MB (5.15 MB JS + fonts + assets)
+- **Source** : `app.json` → `experiments.baseUrl = "/olivia-preview"` + `npx expo export --platform web` → dossier `dist/`
+
+### Limitations connues en version web (ne pas chercher à fixer)
+- Notifications push iOS : ne marchent pas sur web (normal — `expo-notifications` n'a pas de support browser pour push remote)
+- In-App Purchases (`react-native-purchases`) : pas d'équivalent web, le paywall affichera mais sans tunnel d'achat
+- `expo-haptics` : silencieusement no-op sur web
+- Certaines libs natives ont des fallbacks ou ne s'affichent pas — c'est attendu
+
+### Commande de re-deploy (copier-coller à chaque update)
+
+```bash
+cd /Users/charifhachichi/Documents/Claude/Sophia \
+  && trash dist 2>/dev/null; npx expo export --platform web \
+  && cd /tmp/olivia-preview-deploy \
+  && find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '.nojekyll' -exec rm -rf {} + \
+  && cp -R /Users/charifhachichi/Documents/Claude/Sophia/dist/* . \
+  && git add -A \
+  && git commit -m "deploy: update Olivia web preview" \
+  && git push
+```
+
+> Si `/tmp/olivia-preview-deploy` a été nettoyé (reboot etc.), recréer :
+> ```bash
+> mkdir /tmp/olivia-preview-deploy && cd /tmp/olivia-preview-deploy \
+>   && git init -b main && git remote add origin https://github.com/ffngnq28pm-sketch/olivia-preview.git \
+>   && git pull origin main && touch .nojekyll
+> ```

@@ -76,7 +76,7 @@
     ],
     "experiments": {
       "typedRoutes": true,
-      "baseUrl": "/sophia-christian-wisdom"
+      "baseUrl": "/olivia-preview"
     },
     "extra": {
       "router": {},
