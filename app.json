@@ -6,7 +6,7 @@
     "description": "Sagesse chrétienne au quotidien — paix, contemplation et soin de la création. Olivia, l'olivier qui veille.",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "sophia",
+    "scheme": "olivia",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
@@ -16,7 +16,7 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.sophia.christianwisdom",
+      "bundleIdentifier": "com.charif.olivia",
       "buildNumber": "1",
       "infoPlist": {
         "UIBackgroundModes": [
@@ -40,7 +40,7 @@
       }
     },
     "android": {
-      "package": "com.sophia.christianwisdom",
+      "package": "com.charif.olivia",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
