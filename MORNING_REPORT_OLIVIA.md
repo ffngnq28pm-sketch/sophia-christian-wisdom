@@ -81,7 +81,6 @@ $ npx expo-doctor        → 16/17 checks passed
 2. **URLs publiques** privacy/terms hébergées sur `ffngnq28pm-sketch.github.io/sophia-christian-wisdom/` — toujours valides mais le nom contient sophia.
 3. **Email support** : `support@sophia-app.fr` — domaine actif ? À migrer vers olivia ou conserver pour compat.
 4. **Pas de refactor des classes/types/identifiants techniques** — gardés pour ne pas casser.
-5. **Assets audio** non commités. Si le user souhaite les conserver, à committer manuellement (`assets/audio/*.wav`).
 
 ## 🚀 Prochaines étapes pour l'utilisateur au réveil
 

@@ -23,7 +23,6 @@ import { RosaryCounter } from '@/components/RosaryCounter';
 import { DailyChallengeWidget } from '@/components/DailyChallengeWidget';
 import { DailySaintWidget } from '@/components/DailySaintWidget';
 import { StreakBadge } from '@/components/StreakBadge';
-import { AudioActivationBanner } from '@/components/AudioActivationBanner';
 import { useFavorites } from '@/hooks/useFavorites';
 import { usePremium, FREE_CARD_LIMIT } from '@/hooks/usePremium';
 import { useStreak } from '@/hooks/useStreak';
@@ -131,8 +130,6 @@ export default function HomeScreen() {
         <View style={styles.streakRow}>
           <StreakBadge streak={streak} bestStreak={bestStreak} />
         </View>
-
-        <AudioActivationBanner />
 
         <LiturgicalCalendarWidget />
 

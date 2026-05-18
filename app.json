@@ -19,10 +19,6 @@
       "bundleIdentifier": "com.charif.olivia",
       "buildNumber": "1",
       "infoPlist": {
-        "UIBackgroundModes": [
-          "audio"
-        ],
-        "NSMicrophoneUsageDescription": "Olivia n'utilise pas le microphone.",
         "CFBundleDisplayName": "Olivia",
         "ITSAppUsesNonExemptEncryption": false
       },
@@ -45,11 +41,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#1B2B4D"
-      },
-      "permissions": [
-        "android.permission.FOREGROUND_SERVICE",
-        "android.permission.MODIFY_AUDIO_SETTINGS"
-      ]
+      }
     },
     "web": {
       "bundler": "metro",
@@ -71,12 +63,6 @@
             "backgroundColor": "#1B2B4D",
             "image": "./assets/images/splash-icon.png"
           }
-        }
-      ],
-      [
-        "expo-av",
-        {
-          "microphonePermission": false
         }
       ],
       [

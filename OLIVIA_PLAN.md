@@ -146,7 +146,7 @@ Constat : **Sophia/Olivia a déjà plus de features que Charif V1**.
 | 99 Noms / Noms divins | ✓ 99 Allah | ✓ DivineNames |
 | Penseurs / Saints | ✓ 8 thinkers | ✓ ChurchFathers + saints + DailySaintWidget |
 | Horaires prière | ✓ usePrayerTimes (GPS/postal) | — (mais il y a la Liturgie des Heures dans le calendrier) |
-| Audio | — (V1 retiré) | ✓ AudioService (5 ambiances) |
+| Audio | — (V1 retiré) | ✗ Feature audio supprimée — comme Charif |
 | Quiz éducatif | — | ✓ QuizComponent + EducationModule + WeeklyPath + GradeDisplay |
 | Sourates / Bible | ✓ Al-Fatiha + Juz Amma | ✓ Psaumes |
 | Carême / Ramadan | ✓ RamadanWidget | ✓ Lent tab + DailyChallengeWidget |
@@ -201,8 +201,6 @@ Actuellement **8 tabs** (avec Création) :
 - ⚠️ `lib/supabase.ts` est présent mais le commentaire dit "Sophia does not use Supabase" — vérifier que c'est mort code, sinon update les refs
 - ⚠️ URLs publiques `ffngnq28pm-sketch.github.io/sophia-christian-wisdom/...` deviendront cassées si on renomme le repo GH Pages
 - ⚠️ `eas.json` peut contenir des refs à sophia — à auditer
-- ⚠️ Le sound asset `assets/audio/*.wav` n'est pas dans git (gitignored implicitement) — vérifier
-- ⚠️ La feature audio (expo-av) est volumineuse en taille — si pas critique pour V1 Olivia, on peut la désactiver
 
 ---
 

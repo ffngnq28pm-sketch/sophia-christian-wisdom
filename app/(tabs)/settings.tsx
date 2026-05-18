@@ -11,11 +11,10 @@ import {
   TextInput,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { Bell, Globe, Star, ChevronRight, Moon, Info, User, Target, Clock, Heart, Music } from 'lucide-react-native';
+import { Bell, Globe, Star, ChevronRight, Moon, Info, User, Target, Clock, Heart } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { PremiumPaywall } from '@/components/PremiumPaywall';
-import { AmbientSoundSelector } from '@/components/AmbientSoundSelector';
 import { usePremium } from '@/hooks/usePremium';
 import { useTheme, AppTheme } from '@/context/ThemeContext';
 import { useUserProfile, FOCUS_THEMES, FocusTheme, NOTIF_PRESETS, NotifPreset } from '@/context/UserProfileContext';
@@ -343,21 +342,6 @@ export default function SettingsScreen() {
                 </View>
               </>
             )}
-          </View>
-
-          {/* Section: Ambiances */}
-          <Text style={[styles.sectionLabel, { color: colors.textMuted }]}>AMBIANCES SONORES</Text>
-          <View style={[styles.section, { backgroundColor: colors.bgSection, borderColor: colors.border }]}>
-            <View style={[styles.sectionHeader, { paddingBottom: 4 }]}>
-              <Music size={18} color={accent} />
-              <View>
-                <Text style={[styles.sectionTitle, { color: colors.textSecondary }]}>Sons d'ambiance</Text>
-                <Text style={[styles.rowDesc, { color: colors.textMuted }]}>Se prolonge en arrière-plan · Réservé Premium</Text>
-              </View>
-            </View>
-            <View style={{ paddingHorizontal: 14, paddingBottom: 16 }}>
-              <AmbientSoundSelector />
-            </View>
           </View>
 
           {/* Section: Soutenir */}
