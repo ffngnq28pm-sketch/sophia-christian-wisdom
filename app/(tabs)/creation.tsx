@@ -137,7 +137,12 @@ export default function CreationScreen() {
       <Modal visible={!!openSaint} transparent animationType="slide" onRequestClose={() => setOpenSaint(null)}>
         <View style={styles.modalOverlay}>
           <View style={[styles.modalSheet, { backgroundColor: colors.bgCard }]}>
-            <TouchableOpacity style={styles.modalClose} onPress={() => setOpenSaint(null)}>
+            <TouchableOpacity
+              style={styles.modalClose}
+              onPress={() => setOpenSaint(null)}
+              accessibilityRole="button"
+              accessibilityLabel="Fermer la figure du saint"
+            >
               <X size={20} color={colors.textMuted} />
             </TouchableOpacity>
             {openSaint && (
