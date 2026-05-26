@@ -44,12 +44,12 @@ export default function FavoritesScreen() {
 
         {favoriteCards.length === 0 ? (
           <View style={styles.empty}>
-            <View style={[styles.emptyIcon, { borderColor: 'rgba(196,149,74,0.25)', backgroundColor: 'rgba(196,149,74,0.1)' }]}>
-              <Heart size={32} color="#C4954A" />
+            <View style={[styles.emptyIcon, { borderColor: colors.borderAccent, backgroundColor: colors.textAccent + '14' }]}>
+              <Heart size={32} color={colors.textAccent} />
             </View>
-            <Text style={[styles.emptyTitle, { color: colors.textPrimary }]}>Aucun favori</Text>
+            <Text style={[styles.emptyTitle, { color: colors.textPrimary }]}>Une page blanche</Text>
             <Text style={[styles.emptyText, { color: colors.textMuted }]}>
-              Touchez le cœur d'une sagesse pour la retrouver ici, à tout moment.
+              Les pages que vous garderez près de vous{'\n'}reviendront ici.{'\n'}{'\n'}Comme on plie un coin de page dans un missel.
             </Text>
           </View>
         ) : (
@@ -94,10 +94,12 @@ export default function FavoritesScreen() {
         <View style={styles.modalOverlay}>
           <View style={[styles.modalSheet, { backgroundColor: colors.bgCard }]}>
             <TouchableOpacity
-              style={[styles.modalClose, { backgroundColor: 'rgba(255,255,255,0.08)' }]}
+              style={[styles.modalClose, { backgroundColor: colors.bgSection }]}
               onPress={() => setSelectedCard(null)}
+              accessibilityRole="button"
+              accessibilityLabel="Fermer la sagesse"
             >
-              <X size={20} color="#8A8FA8" />
+              <X size={20} color={colors.textMuted} />
             </TouchableOpacity>
             {selectedCard && (
               <ScrollView showsVerticalScrollIndicator={false}>
@@ -173,9 +175,9 @@ const styles = StyleSheet.create({
   modalClose: {
     alignSelf: 'flex-end',
     marginBottom: 12,
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     alignItems: 'center',
     justifyContent: 'center',
   },
