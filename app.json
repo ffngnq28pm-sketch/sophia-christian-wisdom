@@ -83,8 +83,7 @@
       ]
     ],
     "experiments": {
-      "typedRoutes": true,
-      "baseUrl": "/olivia-preview"
+      "typedRoutes": true
     },
     "extra": {
       "router": {},
