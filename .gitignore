@@ -18,3 +18,9 @@ node_modules/
 
 # system
 .DS_Store
+
+# secrets (P8 keys, .env, etc.)
+secrets/
+*.p8
+.env
+.env.*
