@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,40 +9,71 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Animated,
+  Easing,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { useUserProfile, FOCUS_THEMES, FocusTheme } from '@/context/UserProfileContext';
 import { findChristianNameMeaning, ChristianName } from '@/data/christianNames';
+import { useTheme, THEMES } from '@/context/ThemeContext';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const THEME_CONFIG: Record<FocusTheme, { icon: string; desc: string; color: string }> = {
-  Patience:    { icon: '🌊', desc: 'Développer la persévérance et la sérénité', color: '#4A7FA5' },
-  Gratitude:   { icon: '🌸', desc: 'Cultiver la reconnaissance chaque jour',    color: '#A5664A' },
-  Amour:       { icon: '🤝', desc: 'Ouvrir le cœur à la charité évangélique',  color: '#C4954A' },
-  Foi:         { icon: '✝️', desc: 'Renforcer la confiance en Dieu',            color: '#5A7A5A' },
-  Sagesse:     { icon: '⚖️', desc: 'Chercher la connaissance et la vérité',     color: '#7A5A9A' },
-  Paix:        { icon: '🕊️', desc: 'Trouver la tranquillité intérieure',        color: '#4A8A7A' },
+  Patience:    { icon: '🌊', desc: 'Marcher au pas du temps de Dieu',         color: '#4A7FA5' },
+  Gratitude:   { icon: '🌸', desc: 'Recevoir chaque jour comme un don',       color: '#A5664A' },
+  Amour:       { icon: '🤝', desc: 'Ouvrir le cœur à la charité évangélique', color: '#B8902D' },
+  Foi:         { icon: '✝️', desc: 'Confier ce que je ne maîtrise pas',       color: '#3D5224' },
+  Sagesse:     { icon: '⚖️', desc: 'Chercher la vérité avec patience',        color: '#7A5A9A' },
+  Paix:        { icon: '🕊️', desc: 'Tenir le silence comme une lampe',         color: '#4A8A7A' },
 };
+
+const LAPIS_DEEP = THEMES.dark.bg;
+const LAPIS_DEEPER = '#152340';
+const GOLD = THEMES.dark.textAccent;
+const IVORY = THEMES.dark.textPrimary;
+const IVORY_SOFT = THEMES.dark.textSecondary;
+const MUTED = THEMES.dark.textMuted;
 
 export default function OnboardingScreen() {
   const { update } = useUserProfile();
+  const { setTheme } = useTheme();
   const [step, setStep] = useState<'name' | 'theme'>('name');
   const [name, setName] = useState('');
   const [chosen, setChosen] = useState<FocusTheme | null>(null);
   const [nameMeaning, setNameMeaning] = useState<ChristianName | null>(null);
+
+  const stepAnim = useRef(new Animated.Value(0)).current;
+  const introAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    setTheme('dark');
+    Animated.timing(introAnim, {
+      toValue: 1,
+      duration: 720,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: true,
+    }).start();
+  }, []);
 
   function handleNameChange(text: string) {
     setName(text);
     setNameMeaning(findChristianNameMeaning(text));
   }
 
+  function goToStep(next: 'name' | 'theme') {
+    Animated.timing(stepAnim, {
+      toValue: next === 'theme' ? 1 : 0,
+      duration: 360,
+      easing: Easing.inOut(Easing.cubic),
+      useNativeDriver: true,
+    }).start(() => setStep(next));
+  }
+
   function handleNameNext() {
-    if (step === 'name') {
-      setStep('theme');
-    }
+    if (step === 'name') goToStep('theme');
   }
 
   function handleFinish() {
@@ -56,145 +87,181 @@ export default function OnboardingScreen() {
     router.replace('/(tabs)');
   }
 
+  const stepOpacity = stepAnim.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [1, 0, 1],
+  });
+  const stepTranslate = stepAnim.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0, 10, 0],
+  });
+
   return (
     <KeyboardAvoidingView
-      style={styles.root}
+      style={[styles.root, { backgroundColor: LAPIS_DEEP }]}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <StatusBar style="light" />
       <LinearGradient
-        colors={['#0F0B18', '#1A1030', '#0F0B18']}
+        colors={[LAPIS_DEEP, LAPIS_DEEPER, LAPIS_DEEP]}
         style={StyleSheet.absoluteFillObject}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
       />
 
-      <View style={styles.topOrnament}>
-        <Text style={styles.crossLogo}>✝</Text>
-        <Text style={styles.logoTitle}>Sophia</Text>
-        <Text style={styles.logoSub}>ΣΟΦΙΑ · SAGESSE</Text>
-      </View>
+      <Animated.View
+        style={[
+          styles.topOrnament,
+          {
+            opacity: introAnim,
+            transform: [{
+              translateY: introAnim.interpolate({ inputRange: [0, 1], outputRange: [-12, 0] }),
+            }],
+          },
+        ]}
+      >
+        <Text style={[styles.crossLogo, { color: GOLD }]}>🕊</Text>
+        <Text style={[styles.logoTitle, { color: GOLD }]}>Olivia</Text>
+        <Text style={[styles.logoSub, { color: 'rgba(220,180,80,0.55)' }]}>SAGESSE · PAIX · CRÉATION</Text>
+      </Animated.View>
 
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-        {step === 'name' ? (
-          <View style={styles.stepContent}>
-            <Text style={styles.stepTitle}>Bienvenue</Text>
-            <Text style={styles.stepSubtitle}>
-              Commençons votre chemin de sagesse.{'\n'}Comment puis-je vous appeler ?
-            </Text>
+        <Animated.View style={{ opacity: stepOpacity, transform: [{ translateY: stepTranslate }] }}>
+          {step === 'name' ? (
+            <View style={styles.stepContent}>
+              <Text style={[styles.stepTitle, { color: IVORY }]}>Bienvenue</Text>
+              <Text style={[styles.stepSubtitle, { color: MUTED }]}>
+                Asseyez-vous un instant.{'\n'}Comment puis-je vous appeler ?
+              </Text>
 
-            <View style={styles.inputWrap}>
-              <TextInput
-                style={styles.input}
-                placeholder="Votre prénom..."
-                placeholderTextColor="rgba(196,149,74,0.35)"
-                value={name}
-                onChangeText={handleNameChange}
-                autoFocus
-                returnKeyType="next"
-                onSubmitEditing={handleNameNext}
-                selectionColor="#C4954A"
-              />
-            </View>
-
-            <TouchableOpacity
-              style={[styles.nextBtn, !name.trim() && styles.nextBtnDisabled]}
-              onPress={handleNameNext}
-              disabled={!name.trim()}
-              activeOpacity={0.85}
-            >
-              <Text style={styles.nextBtnText}>Continuer</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => setStep('theme')} style={styles.skipBtn} activeOpacity={0.7}>
-              <Text style={styles.skipText}>Passer</Text>
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <View style={styles.stepContent}>
-            <Text style={styles.stepTitle}>
-              {name.trim() ? `Bonjour ${name.trim()}` : 'Votre intention'}
-            </Text>
-
-            {nameMeaning && (
-              <View style={styles.meaningCard}>
-                <View style={styles.meaningHeader}>
-                  <Text style={styles.meaningLatin}>{nameMeaning.latin}</Text>
-                  <View style={styles.originBadge}>
-                    <Text style={styles.originBadgeText}>{nameMeaning.origin}</Text>
-                  </View>
-                </View>
-                <Text style={styles.meaningText}>{nameMeaning.meaning}</Text>
-                {nameMeaning.patron && (
-                  <View style={styles.meaningRow}>
-                    <Text style={styles.meaningLabel}>✝ Patron</Text>
-                    <Text style={styles.meaningValue}>{nameMeaning.patron}</Text>
-                  </View>
-                )}
-                {nameMeaning.feast && (
-                  <View style={styles.meaningRow}>
-                    <Text style={styles.meaningLabel}>📅 Fête</Text>
-                    <Text style={styles.meaningValue}>{nameMeaning.feast}</Text>
-                  </View>
-                )}
-                {nameMeaning.virtue && (
-                  <View style={styles.virtueBadge}>
-                    <Text style={styles.virtueBadgeText}>{nameMeaning.virtue}</Text>
-                  </View>
-                )}
+              <View style={[styles.inputWrap, { borderColor: 'rgba(220,180,80,0.30)', backgroundColor: 'rgba(220,180,80,0.06)' }]}>
+                <TextInput
+                  style={[styles.input, { color: IVORY }]}
+                  placeholder="Votre prénom"
+                  placeholderTextColor="rgba(220,180,80,0.35)"
+                  value={name}
+                  onChangeText={handleNameChange}
+                  autoFocus
+                  returnKeyType="next"
+                  onSubmitEditing={handleNameNext}
+                  selectionColor={GOLD}
+                  accessibilityLabel="Saisir votre prénom"
+                />
               </View>
-            )}
 
-            <Text style={styles.stepSubtitle}>
-              Choisissez un thème sur lequel vous concentrer ce mois-ci.{'\n'}
-              Vos sagesses quotidiennes y seront adaptées.
-            </Text>
+              <TouchableOpacity
+                style={[styles.nextBtn, { backgroundColor: GOLD }, !name.trim() && styles.nextBtnDisabled]}
+                onPress={handleNameNext}
+                disabled={!name.trim()}
+                activeOpacity={0.85}
+                accessibilityRole="button"
+                accessibilityLabel="Continuer vers le choix du thème"
+              >
+                <Text style={[styles.nextBtnText, { color: LAPIS_DEEP }]}>Continuer</Text>
+              </TouchableOpacity>
 
-            <View style={styles.themesGrid}>
-              {FOCUS_THEMES.map((theme) => {
-                const cfg = THEME_CONFIG[theme];
-                const isActive = chosen === theme;
-                return (
-                  <TouchableOpacity
-                    key={theme}
-                    style={[
-                      styles.themeCard,
-                      isActive && { borderColor: cfg.color, backgroundColor: cfg.color + '18' },
-                    ]}
-                    onPress={() => setChosen(theme)}
-                    activeOpacity={0.8}
-                  >
-                    <Text style={styles.themeIcon}>{cfg.icon}</Text>
-                    <Text style={[styles.themeName, isActive && { color: '#F2EAD8' }]}>{theme}</Text>
-                    <Text style={styles.themeDesc}>{cfg.desc}</Text>
-                    {isActive && <View style={[styles.themeActiveBar, { backgroundColor: cfg.color }]} />}
-                  </TouchableOpacity>
-                );
-              })}
+              <TouchableOpacity
+                onPress={() => goToStep('theme')}
+                style={styles.skipBtn}
+                activeOpacity={0.7}
+                accessibilityRole="button"
+                accessibilityLabel="Passer cette étape"
+              >
+                <Text style={[styles.skipText, { color: 'rgba(237,228,208,0.45)' }]}>Plus tard</Text>
+              </TouchableOpacity>
             </View>
+          ) : (
+            <View style={styles.stepContent}>
+              <Text style={[styles.stepTitle, { color: IVORY }]}>
+                {name.trim() ? `Bonjour ${name.trim()}` : 'Votre intention'}
+              </Text>
 
-            <TouchableOpacity
-              style={[styles.nextBtn, !chosen && styles.nextBtnDisabled]}
-              onPress={handleFinish}
-              disabled={!chosen}
-              activeOpacity={0.85}
-            >
-              <Text style={styles.nextBtnText}>Commencer mon chemin</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+              {nameMeaning && (
+                <View style={[styles.meaningCard, { borderColor: 'rgba(220,180,80,0.30)', backgroundColor: 'rgba(220,180,80,0.06)' }]}>
+                  <View style={styles.meaningHeader}>
+                    <Text style={[styles.meaningLatin, { color: GOLD }]}>{nameMeaning.latin}</Text>
+                    <View style={styles.originBadge}>
+                      <Text style={[styles.originBadgeText, { color: GOLD }]}>{nameMeaning.origin}</Text>
+                    </View>
+                  </View>
+                  <Text style={[styles.meaningText, { color: IVORY_SOFT }]}>{nameMeaning.meaning}</Text>
+                  {nameMeaning.patron && (
+                    <View style={styles.meaningRow}>
+                      <Text style={[styles.meaningLabel, { color: GOLD }]}>✝  Patron</Text>
+                      <Text style={[styles.meaningValue, { color: IVORY_SOFT }]}>{nameMeaning.patron}</Text>
+                    </View>
+                  )}
+                  {nameMeaning.feast && (
+                    <View style={styles.meaningRow}>
+                      <Text style={[styles.meaningLabel, { color: GOLD }]}>📅  Fête</Text>
+                      <Text style={[styles.meaningValue, { color: IVORY_SOFT }]}>{nameMeaning.feast}</Text>
+                    </View>
+                  )}
+                  {nameMeaning.virtue && (
+                    <View style={[styles.virtueBadge, { borderColor: 'rgba(220,180,80,0.45)', backgroundColor: 'rgba(220,180,80,0.14)' }]}>
+                      <Text style={[styles.virtueBadgeText, { color: GOLD }]}>{nameMeaning.virtue}</Text>
+                    </View>
+                  )}
+                </View>
+              )}
+
+              <Text style={[styles.stepSubtitle, { color: MUTED }]}>
+                Choisissez une vertu à cultiver ce mois-ci.{'\n'}
+                Vos sagesses du jour s'y accorderont.
+              </Text>
+
+              <View style={styles.themesGrid}>
+                {FOCUS_THEMES.map((theme) => {
+                  const cfg = THEME_CONFIG[theme];
+                  const isActive = chosen === theme;
+                  return (
+                    <TouchableOpacity
+                      key={theme}
+                      style={[
+                        styles.themeCard,
+                        { borderColor: 'rgba(237,228,208,0.08)', backgroundColor: 'rgba(237,228,208,0.03)' },
+                        isActive && { borderColor: cfg.color, backgroundColor: cfg.color + '20' },
+                      ]}
+                      onPress={() => setChosen(theme)}
+                      activeOpacity={0.8}
+                      accessibilityRole="button"
+                      accessibilityState={{ selected: isActive }}
+                      accessibilityLabel={`Vertu ${theme} : ${cfg.desc}`}
+                    >
+                      <Text style={styles.themeIcon}>{cfg.icon}</Text>
+                      <Text style={[styles.themeName, { color: isActive ? IVORY : MUTED }]}>{theme}</Text>
+                      <Text style={[styles.themeDesc, { color: 'rgba(237,228,208,0.42)' }]}>{cfg.desc}</Text>
+                      {isActive && <View style={[styles.themeActiveBar, { backgroundColor: cfg.color }]} />}
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+
+              <TouchableOpacity
+                style={[styles.nextBtn, { backgroundColor: GOLD }, !chosen && styles.nextBtnDisabled]}
+                onPress={handleFinish}
+                disabled={!chosen}
+                activeOpacity={0.85}
+                accessibilityRole="button"
+                accessibilityLabel="Entrer dans Olivia"
+              >
+                <Text style={[styles.nextBtnText, { color: LAPIS_DEEP }]}>Entrer en silence</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </Animated.View>
       </ScrollView>
 
       <View style={styles.dots}>
-        <View style={[styles.dot, step === 'name' && styles.dotActive]} />
-        <View style={[styles.dot, step === 'theme' && styles.dotActive]} />
+        <View style={[styles.dot, { backgroundColor: 'rgba(237,228,208,0.14)' }, step === 'name' && [styles.dotActive, { backgroundColor: GOLD }]]} />
+        <View style={[styles.dot, { backgroundColor: 'rgba(237,228,208,0.14)' }, step === 'theme' && [styles.dotActive, { backgroundColor: GOLD }]]} />
       </View>
     </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: '#0F0B18' },
+  root: { flex: 1 },
   topOrnament: {
     alignItems: 'center',
     paddingTop: 60,
@@ -202,22 +269,19 @@ const styles = StyleSheet.create({
   },
   crossLogo: {
     fontSize: 48,
-    color: '#C4954A',
-    textShadowColor: 'rgba(196,149,74,0.4)',
+    textShadowColor: 'rgba(220,180,80,0.4)',
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 20,
   },
   logoTitle: {
     fontFamily: 'Cinzel_700Bold',
     fontSize: 28,
-    color: '#C4954A',
     letterSpacing: 4,
     marginTop: 4,
   },
   logoSub: {
     fontFamily: 'Lato_400Regular',
     fontSize: 11,
-    color: 'rgba(196,149,74,0.5)',
     letterSpacing: 4,
     marginTop: 4,
   },
@@ -232,14 +296,12 @@ const styles = StyleSheet.create({
   stepTitle: {
     fontFamily: 'Cinzel_700Bold',
     fontSize: 28,
-    color: '#F2EAD8',
     textAlign: 'center',
     marginBottom: 12,
   },
   stepSubtitle: {
     fontFamily: 'Lato_400Regular',
     fontSize: 14,
-    color: '#8A8FA8',
     textAlign: 'center',
     lineHeight: 22,
     marginBottom: 36,
@@ -249,39 +311,36 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: 'rgba(196,149,74,0.3)',
-    backgroundColor: 'rgba(196,149,74,0.06)',
     overflow: 'hidden',
   },
   input: {
     fontFamily: 'Lato_400Regular',
     fontSize: 18,
-    color: '#F2EAD8',
     paddingHorizontal: 20,
     paddingVertical: 16,
     textAlign: 'center',
   },
   nextBtn: {
     width: '100%',
+    minHeight: 48,
     paddingVertical: 16,
     borderRadius: 16,
-    backgroundColor: '#C4954A',
     alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: 16,
   },
   nextBtnDisabled: {
-    backgroundColor: 'rgba(196,149,74,0.25)',
+    opacity: 0.35,
   },
   nextBtnText: {
     fontFamily: 'Lato_700Bold',
     fontSize: 16,
-    color: '#0F0B18',
+    letterSpacing: 0.5,
   },
-  skipBtn: { padding: 12 },
+  skipBtn: { padding: 12, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
   skipText: {
     fontFamily: 'Lato_400Regular',
     fontSize: 13,
-    color: '#4A5068',
   },
   themesGrid: {
     flexDirection: 'row',
@@ -295,24 +354,21 @@ const styles = StyleSheet.create({
     padding: 18,
     borderRadius: 18,
     borderWidth: 1.5,
-    borderColor: 'rgba(255,255,255,0.08)',
-    backgroundColor: 'rgba(255,255,255,0.03)',
     alignItems: 'center',
     gap: 6,
     overflow: 'hidden',
+    minHeight: 110,
   },
   themeIcon: { fontSize: 26 },
   themeName: {
     fontFamily: 'Cinzel_700Bold',
     fontSize: 14,
-    color: '#8A8FA8',
   },
   themeDesc: {
     fontFamily: 'Lato_400Regular',
-    fontSize: 10,
-    color: '#4A5068',
+    fontSize: 11,
     textAlign: 'center',
-    lineHeight: 14,
+    lineHeight: 15,
   },
   themeActiveBar: {
     position: 'absolute',
@@ -332,18 +388,14 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: 'rgba(255,255,255,0.12)',
   },
   dotActive: {
     width: 24,
-    backgroundColor: '#C4954A',
   },
   meaningCard: {
     width: '100%',
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: 'rgba(74,127,165,0.35)',
-    backgroundColor: 'rgba(74,127,165,0.08)',
     padding: 16,
     marginBottom: 20,
     gap: 8,
@@ -359,7 +411,6 @@ const styles = StyleSheet.create({
   meaningLatin: {
     fontFamily: 'Cinzel_700Bold',
     fontSize: 13,
-    color: '#4A7FA5',
     letterSpacing: 0.5,
     flexShrink: 1,
   },
@@ -367,20 +418,18 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     paddingHorizontal: 8,
     paddingVertical: 3,
-    backgroundColor: 'rgba(200,169,110,0.15)',
+    backgroundColor: 'rgba(220,180,80,0.12)',
     borderWidth: 1,
-    borderColor: 'rgba(200,169,110,0.4)',
+    borderColor: 'rgba(220,180,80,0.35)',
   },
   originBadgeText: {
     fontFamily: 'Lato_700Bold',
     fontSize: 10,
-    color: '#C8A96E',
     letterSpacing: 0.5,
   },
   meaningText: {
     fontFamily: 'Lato_400Regular',
     fontSize: 13,
-    color: '#B0B8CC',
     lineHeight: 20,
     fontStyle: 'italic',
   },
@@ -392,14 +441,12 @@ const styles = StyleSheet.create({
   meaningLabel: {
     fontFamily: 'Lato_700Bold',
     fontSize: 11,
-    color: '#4A7FA5',
-    minWidth: 60,
+    minWidth: 70,
     marginTop: 1,
   },
   meaningValue: {
     fontFamily: 'Lato_400Regular',
     fontSize: 12,
-    color: '#8A8FA8',
     flex: 1,
     lineHeight: 18,
   },
@@ -408,15 +455,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 12,
     paddingVertical: 4,
-    backgroundColor: 'rgba(74,127,165,0.2)',
     borderWidth: 1,
-    borderColor: 'rgba(74,127,165,0.5)',
     marginTop: 4,
   },
   virtueBadgeText: {
     fontFamily: 'Lato_700Bold',
     fontSize: 11,
-    color: '#4A7FA5',
     letterSpacing: 0.8,
     textTransform: 'uppercase',
   },

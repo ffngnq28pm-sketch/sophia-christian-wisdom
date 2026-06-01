@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { AsyncStorage_like } from '@/context/storage';
 
-const KEY = 'sophia_favorites_v1';
+const KEY = 'olivia_favorites_v1';
 
 function load(): Set<string> {
   const raw = AsyncStorage_like.get(KEY);

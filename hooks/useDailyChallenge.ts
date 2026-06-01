@@ -3,8 +3,8 @@ import * as Haptics from 'expo-haptics';
 import { AsyncStorage_like } from '@/context/storage';
 import { getTodayChallenge, Challenge } from '@/data/challenges';
 
-function todayKey()  { return `sophia_challenge_done_${new Date().toISOString().slice(0, 10)}`; }
-function monthKey()  { return `sophia_challenge_month_${new Date().toISOString().slice(0, 7)}`; }
+function todayKey()  { return `olivia_challenge_done_${new Date().toISOString().slice(0, 10)}`; }
+function monthKey()  { return `olivia_challenge_month_${new Date().toISOString().slice(0, 7)}`; }
 
 function loadMonthCount(): number {
   return parseInt(AsyncStorage_like.get(monthKey()) ?? '0', 10);

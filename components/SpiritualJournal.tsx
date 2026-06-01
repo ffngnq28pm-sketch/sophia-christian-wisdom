@@ -68,6 +68,8 @@ export function SpiritualJournal({ entries, onAdd, onDelete }: SpiritualJournalP
         style={[styles.newEntryBtn, { borderColor: colors.borderAccent, backgroundColor: colors.bgSection }]}
         onPress={() => setModalVisible(true)}
         activeOpacity={0.8}
+        accessibilityRole="button"
+        accessibilityLabel="Ajouter une entrée au journal spirituel"
       >
         <Text style={[styles.newEntryBtnTxt, { color: colors.textAccent, fontFamily: 'Lato_700Bold' }]}>
           + Nouvelle entrée
@@ -78,7 +80,7 @@ export function SpiritualJournal({ entries, onAdd, onDelete }: SpiritualJournalP
       {visibleEntries.length === 0 ? (
         <View style={[styles.emptyBox, { borderColor: colors.border }]}>
           <Text style={[styles.emptyTxt, { color: colors.textMuted, fontFamily: 'Lato_400Regular' }]}>
-            Votre journal spirituel est vide. Commencez à noter vos réflexions.
+            Les premiers mots viendront.{'\n'}Notez ce qui s'est offert aujourd'hui.
           </Text>
         </View>
       ) : (
@@ -93,7 +95,9 @@ export function SpiritualJournal({ entries, onAdd, onDelete }: SpiritualJournalP
               </Text>
               <TouchableOpacity
                 onPress={() => onDelete(entry.id)}
-                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+                accessibilityRole="button"
+                accessibilityLabel={`Supprimer l'entrée du ${formatDate(entry.date)}`}
               >
                 <Text style={[styles.deleteBtn, { color: colors.textMuted }]}>✕</Text>
               </TouchableOpacity>

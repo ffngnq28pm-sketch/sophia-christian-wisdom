@@ -21,48 +21,48 @@ export interface ThemeColors {
 
 const THEMES: Record<AppTheme, ThemeColors> = {
   dark: {
-    bg: '#0F0B18',
-    bgCard: '#160E22',
-    bgSection: 'rgba(196,149,74,0.05)',
-    bgInput: 'rgba(196,149,74,0.08)',
-    bgTabBar: '#100C1A',
-    textPrimary: '#F2EAD8',
-    textSecondary: '#C8B898',
-    textMuted: '#5A4E6A',
-    textAccent: '#C4954A',
-    border: 'rgba(196,149,74,0.10)',
-    borderAccent: 'rgba(196,149,74,0.35)',
-    cardGradient: ['rgba(15,11,24,0.45)', 'rgba(15,11,24,0.72)', 'rgba(15,11,24,0.92)'],
+    bg: '#1B2B4D',
+    bgCard: '#243A5E',
+    bgSection: 'rgba(184,144,45,0.06)',
+    bgInput: 'rgba(184,144,45,0.10)',
+    bgTabBar: '#152340',
+    textPrimary: '#EDE4D0',
+    textSecondary: '#CDC4B0',
+    textMuted: '#8B8474',
+    textAccent: '#DCB450',
+    border: 'rgba(184,144,45,0.18)',
+    borderAccent: 'rgba(184,144,45,0.45)',
+    cardGradient: ['rgba(27,43,77,0.45)', 'rgba(27,43,77,0.72)', 'rgba(10,22,50,0.92)'],
     statusBar: 'light',
   },
   light: {
-    bg: '#F9F4EC',
-    bgCard: '#FFFFFF',
-    bgSection: 'rgba(0,0,0,0.03)',
-    bgInput: 'rgba(0,0,0,0.05)',
+    bg: '#EDE4D0',
+    bgCard: '#F5EFE0',
+    bgSection: 'rgba(27,43,77,0.04)',
+    bgInput: 'rgba(27,43,77,0.06)',
     bgTabBar: '#FFFFFF',
-    textPrimary: '#1A1008',
-    textSecondary: '#3A2A18',
-    textMuted: '#8A7258',
-    textAccent: '#A8782A',
-    border: 'rgba(0,0,0,0.08)',
-    borderAccent: 'rgba(168,120,42,0.4)',
-    cardGradient: ['rgba(10,6,0,0.15)', 'rgba(10,6,0,0.50)', 'rgba(10,6,0,0.85)'],
+    textPrimary: '#1B2B4D',
+    textSecondary: '#3D5224',
+    textMuted: '#7A6E58',
+    textAccent: '#B8902D',
+    border: 'rgba(27,43,77,0.10)',
+    borderAccent: 'rgba(184,144,45,0.40)',
+    cardGradient: ['rgba(27,43,77,0.10)', 'rgba(27,43,77,0.40)', 'rgba(27,43,77,0.80)'],
     statusBar: 'dark',
   },
   sepia: {
-    bg: '#1A1005',
-    bgCard: '#221508',
-    bgSection: 'rgba(210,170,90,0.06)',
-    bgInput: 'rgba(210,170,90,0.08)',
-    bgTabBar: '#160E04',
-    textPrimary: '#EAD8A8',
-    textSecondary: '#C8A878',
-    textMuted: '#7A6040',
-    textAccent: '#D4A03C',
-    border: 'rgba(210,170,90,0.12)',
-    borderAccent: 'rgba(212,160,60,0.4)',
-    cardGradient: ['rgba(26,16,5,0.35)', 'rgba(26,16,5,0.65)', 'rgba(26,16,5,0.93)'],
+    bg: '#1F2A14',
+    bgCard: '#293617',
+    bgSection: 'rgba(220,180,80,0.06)',
+    bgInput: 'rgba(220,180,80,0.10)',
+    bgTabBar: '#19220F',
+    textPrimary: '#EDE4D0',
+    textSecondary: '#CDC4B0',
+    textMuted: '#8B8474',
+    textAccent: '#DCB450',
+    border: 'rgba(184,144,45,0.20)',
+    borderAccent: 'rgba(184,144,45,0.45)',
+    cardGradient: ['rgba(31,42,20,0.40)', 'rgba(31,42,20,0.70)', 'rgba(15,22,8,0.92)'],
     statusBar: 'light',
   },
 };
@@ -83,13 +83,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<AppTheme>('dark');
 
   useEffect(() => {
-    const saved = AsyncStorage_like.get('sophia_theme') as AppTheme | null;
+    const saved = AsyncStorage_like.get('olivia_theme') as AppTheme | null;
     if (saved && THEMES[saved]) setThemeState(saved);
   }, []);
 
   function setTheme(t: AppTheme) {
     setThemeState(t);
-    AsyncStorage_like.set('sophia_theme', t);
+    AsyncStorage_like.set('olivia_theme', t);
   }
 
   return (

@@ -4,3 +4,23 @@
 
 expo-env.d.ts
 # @end expo-cli
+
+# build / deploy
+dist/
+dist-gh/
+.netlify/
+.expo/
+node_modules/
+
+# build artifacts
+*.ipa
+*.apk
+
+# system
+.DS_Store
+
+# secrets (P8 keys, .env, etc.)
+secrets/
+*.p8
+.env
+.env.*

@@ -11,11 +11,10 @@ import {
   TextInput,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { Bell, Globe, Star, ChevronRight, Moon, Info, User, Target, Clock, Heart, Music } from 'lucide-react-native';
+import { Bell, Globe, Star, ChevronRight, Moon, Info, User, Target, Clock, Heart } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { PremiumPaywall } from '@/components/PremiumPaywall';
-import { AmbientSoundSelector } from '@/components/AmbientSoundSelector';
 import { usePremium } from '@/hooks/usePremium';
 import { useTheme, AppTheme } from '@/context/ThemeContext';
 import { useUserProfile, FOCUS_THEMES, FocusTheme, NOTIF_PRESETS, NotifPreset } from '@/context/UserProfileContext';
@@ -26,9 +25,9 @@ const TIMER_OPTIONS = [5, 10, 15, 30] as const;
 
 type VisualTheme = { key: AppTheme; label: string; desc: string; preview: [string, string] };
 const VISUAL_THEMES: VisualTheme[] = [
-  { key: 'dark',  label: 'Vêpres',    desc: 'Nuit byzantine — défaut',        preview: ['#0F0B18', '#1A1030'] },
-  { key: 'light', label: 'Laudes',    desc: 'Parchemin ivoire et or pur',     preview: ['#F9F4EC', '#EDE3D0'] },
-  { key: 'sepia', label: 'Monastère', desc: 'Pierre de taille — scriptorium', preview: ['#1A1005', '#2E1F0C'] },
+  { key: 'dark',  label: 'Vêpres',    desc: 'Lapis profond — méditation du soir', preview: ['#1B2B4D', '#152340'] },
+  { key: 'light', label: 'Laudes',    desc: 'Parchemin ivoire — prière du matin', preview: ['#EDE4D0', '#F5EFE0'] },
+  { key: 'sepia', label: 'Monastère', desc: 'Olive sombre — silence du cloître',  preview: ['#1F2A14', '#293617'] },
 ];
 
 export default function SettingsScreen() {
@@ -58,25 +57,31 @@ export default function SettingsScreen() {
           {/* Premium Banner */}
           {!isPremium ? (
             <TouchableOpacity
-              style={[styles.premiumBanner, { borderColor: 'rgba(196,149,74,0.3)' }]}
+              style={[styles.premiumBanner, { borderColor: colors.borderAccent }]}
               onPress={() => setPremiumVisible(true)}
               activeOpacity={0.85}
+              accessibilityRole="button"
+              accessibilityLabel="Découvrir Olivia Premium"
             >
-              <LinearGradient colors={['#1A1030', '#0F0B22']} style={styles.premiumGradient} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
+              <LinearGradient colors={[colors.bgCard, colors.bgTabBar]} style={styles.premiumGradient} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
                 <View style={styles.premiumLeft}>
-                  <View style={styles.starBadge}><Star size={16} color="#C4954A" fill="#C4954A" /></View>
+                  <View style={[styles.starBadge, { backgroundColor: accent + '24' }]}>
+                    <Star size={16} color={accent} fill={accent} />
+                  </View>
                   <View>
-                    <Text style={styles.premiumTitle}>Sophia Premium</Text>
-                    <Text style={styles.premiumDesc}>Accédez à la sagesse complète</Text>
+                    <Text style={[styles.premiumTitle, { color: colors.textPrimary }]}>Olivia Premium</Text>
+                    <Text style={[styles.premiumDesc, { color: colors.textMuted }]}>Accédez à la sagesse complète</Text>
                   </View>
                 </View>
-                <View style={styles.premiumCta}><Text style={styles.premiumCtaText}>Découvrir</Text></View>
+                <View style={[styles.premiumCta, { backgroundColor: accent }]}>
+                  <Text style={[styles.premiumCtaText, { color: colors.bg }]}>Découvrir</Text>
+                </View>
               </LinearGradient>
             </TouchableOpacity>
           ) : (
-            <View style={[styles.premiumActive, { borderColor: 'rgba(196,149,74,0.25)', backgroundColor: 'rgba(196,149,74,0.08)' }]}>
-              <Star size={16} color="#C4954A" fill="#C4954A" />
-              <Text style={[styles.premiumActiveText, { color: accent }]}>Sophia Premium actif</Text>
+            <View style={[styles.premiumActive, { borderColor: colors.borderAccent, backgroundColor: accent + '14' }]}>
+              <Star size={16} color={accent} fill={accent} />
+              <Text style={[styles.premiumActiveText, { color: accent }]}>Olivia Premium actif</Text>
             </View>
           )}
 
@@ -100,8 +105,8 @@ export default function SettingsScreen() {
                   returnKeyType="done"
                   onSubmitEditing={saveName}
                 />
-                <TouchableOpacity onPress={saveName} style={[styles.saveBtn, { backgroundColor: accent }]} activeOpacity={0.8}>
-                  <Text style={styles.saveBtnText}>Sauvegarder</Text>
+                <TouchableOpacity onPress={saveName} style={[styles.saveBtn, { backgroundColor: accent }]} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Sauvegarder le prénom">
+                  <Text style={[styles.saveBtnText, { color: colors.bg }]}>Sauvegarder</Text>
                 </TouchableOpacity>
               </View>
             ) : (
@@ -165,7 +170,7 @@ export default function SettingsScreen() {
               <Switch
                 value={profile.notifEnabled}
                 onValueChange={(v) => update({ notifEnabled: v })}
-                trackColor={{ false: colors.bgSection, true: 'rgba(196,149,74,0.4)' }}
+                trackColor={{ false: colors.bgSection, true: accent + '66' }}
                 thumbColor={profile.notifEnabled ? accent : colors.textMuted}
               />
             </View>
@@ -244,7 +249,7 @@ export default function SettingsScreen() {
                 </View>
                 {theme === vt.key && (
                   <View style={[styles.activeCheck, { backgroundColor: accent }]}>
-                    <Text style={styles.activeCheckText}>✓</Text>
+                    <Text style={[styles.activeCheckText, { color: colors.bg }]}>✓</Text>
                   </View>
                 )}
               </TouchableOpacity>
@@ -309,7 +314,7 @@ export default function SettingsScreen() {
               <Switch
                 value={isAutoEnabled}
                 onValueChange={setAutoEnabled}
-                trackColor={{ false: colors.bgSection, true: 'rgba(196,149,74,0.4)' }}
+                trackColor={{ false: colors.bgSection, true: accent + '66' }}
                 thumbColor={isAutoEnabled ? accent : colors.textMuted}
               />
             </View>
@@ -345,21 +350,6 @@ export default function SettingsScreen() {
             )}
           </View>
 
-          {/* Section: Ambiances */}
-          <Text style={[styles.sectionLabel, { color: colors.textMuted }]}>AMBIANCES SONORES</Text>
-          <View style={[styles.section, { backgroundColor: colors.bgSection, borderColor: colors.border }]}>
-            <View style={[styles.sectionHeader, { paddingBottom: 4 }]}>
-              <Music size={18} color={accent} />
-              <View>
-                <Text style={[styles.sectionTitle, { color: colors.textSecondary }]}>Sons d'ambiance</Text>
-                <Text style={[styles.rowDesc, { color: colors.textMuted }]}>Se prolonge en arrière-plan · Réservé Premium</Text>
-              </View>
-            </View>
-            <View style={{ paddingHorizontal: 14, paddingBottom: 16 }}>
-              <AmbientSoundSelector />
-            </View>
-          </View>
-
           {/* Section: Soutenir */}
           <Text style={[styles.sectionLabel, { color: colors.textMuted }]}>SOUTENIR</Text>
           <View style={[styles.section, { backgroundColor: colors.bgSection, borderColor: colors.border }]}>
@@ -372,7 +362,7 @@ export default function SettingsScreen() {
                 <Heart size={18} color={accent} />
                 <View>
                   <Text style={[styles.rowTitle, { color: colors.textSecondary }]}>
-                    ❤️ Soutenir Sophia
+                    ❤️ Soutenir Olivia
                   </Text>
                   <Text style={[styles.rowDesc, { color: colors.textMuted }]}>
                     Contribuer à enrichir cette bibliothèque
@@ -386,7 +376,7 @@ export default function SettingsScreen() {
           {/* About */}
           <Text style={[styles.sectionLabel, { color: colors.textMuted }]}>À PROPOS</Text>
           <View style={[styles.section, { backgroundColor: colors.bgSection, borderColor: colors.border }]}>
-            <TouchableOpacity style={styles.row} activeOpacity={0.75} onPress={() => Linking.openURL('https://ffngnq28pm-sketch.github.io/sophia-christian-wisdom/privacy.html')}>
+            <TouchableOpacity style={styles.row} activeOpacity={0.75} onPress={() => Linking.openURL('https://ffngnq28pm-sketch.github.io/olivia-privacy/')}>
               <View style={styles.rowLeft}>
                 <Info size={18} color={accent} />
                 <Text style={[styles.rowTitle, { color: colors.textSecondary }]}>Politique de confidentialité</Text>
@@ -394,7 +384,7 @@ export default function SettingsScreen() {
               <ChevronRight size={16} color={colors.textMuted} />
             </TouchableOpacity>
             <View style={[styles.separator, { backgroundColor: colors.border }]} />
-            <TouchableOpacity style={styles.row} activeOpacity={0.75} onPress={() => Linking.openURL('https://ffngnq28pm-sketch.github.io/sophia-christian-wisdom/terms.html')}>
+            <TouchableOpacity style={styles.row} activeOpacity={0.75} onPress={() => Linking.openURL('https://ffngnq28pm-sketch.github.io/olivia-privacy/terms.html')}>
               <View style={styles.rowLeft}>
                 <Info size={18} color={accent} />
                 <Text style={[styles.rowTitle, { color: colors.textSecondary }]}>Conditions d'utilisation</Text>
@@ -405,17 +395,17 @@ export default function SettingsScreen() {
             <TouchableOpacity style={styles.row} activeOpacity={0.75}>
               <View style={styles.rowLeft}>
                 <Info size={18} color={accent} />
-                <Text style={[styles.rowTitle, { color: colors.textSecondary }]}>À propos de Sophia</Text>
+                <Text style={[styles.rowTitle, { color: colors.textSecondary }]}>À propos d'Olivia</Text>
               </View>
               <ChevronRight size={16} color={colors.textMuted} />
             </TouchableOpacity>
           </View>
 
           <View style={styles.footer}>
-            <Text style={[styles.footerCross, { color: colors.textMuted }]}>✝</Text>
-            <Text style={[styles.footerTitle, { color: colors.textMuted }]}>Sophia · Σοφία</Text>
+            <Text style={[styles.footerCross, { color: colors.textMuted }]}>🕊</Text>
+            <Text style={[styles.footerTitle, { color: colors.textMuted }]}>Olivia</Text>
             <Text style={[styles.footerText, { color: colors.textMuted }]}>Version 1.0.0</Text>
-            <Text style={[styles.footerTagline, { color: colors.textMuted }]}>Sagesse éternelle — chaque jour.</Text>
+            <Text style={[styles.footerTagline, { color: colors.textMuted }]}>Sagesse et paix — chaque jour.</Text>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -434,11 +424,11 @@ const styles = StyleSheet.create({
   premiumBanner: { marginHorizontal: 20, marginBottom: 28, borderRadius: 18, overflow: 'hidden', borderWidth: 1 },
   premiumGradient: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 18 },
   premiumLeft: { flexDirection: 'row', alignItems: 'center', gap: 14 },
-  starBadge: { width: 38, height: 38, borderRadius: 19, backgroundColor: 'rgba(196,149,74,0.15)', alignItems: 'center', justifyContent: 'center' },
-  premiumTitle: { fontFamily: 'Lato_700Bold', fontSize: 15, color: '#F2EAD8', marginBottom: 2 },
-  premiumDesc: { fontFamily: 'Lato_400Regular', fontSize: 12, color: '#8A8FA8' },
-  premiumCta: { backgroundColor: '#C4954A', borderRadius: 10, paddingHorizontal: 16, paddingVertical: 8 },
-  premiumCtaText: { fontFamily: 'Lato_700Bold', fontSize: 13, color: '#0F0B18' },
+  starBadge: { width: 38, height: 38, borderRadius: 19, alignItems: 'center', justifyContent: 'center' },
+  premiumTitle: { fontFamily: 'Lato_700Bold', fontSize: 15, marginBottom: 2 },
+  premiumDesc: { fontFamily: 'Lato_400Regular', fontSize: 12 },
+  premiumCta: { borderRadius: 10, paddingHorizontal: 16, paddingVertical: 8 },
+  premiumCtaText: { fontFamily: 'Lato_700Bold', fontSize: 13 },
   premiumActive: { flexDirection: 'row', alignItems: 'center', gap: 8, marginHorizontal: 20, marginBottom: 28, padding: 14, borderRadius: 14, borderWidth: 1 },
   premiumActiveText: { fontFamily: 'Lato_700Bold', fontSize: 14 },
   sectionLabel: { fontFamily: 'Lato_400Regular', fontSize: 10, letterSpacing: 2, paddingHorizontal: 24, marginBottom: 8 },
@@ -448,8 +438,8 @@ const styles = StyleSheet.create({
   sectionSub: { fontFamily: 'Lato_700Bold', fontSize: 11, marginTop: 2 },
   nameEditRow: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14, paddingBottom: 14, gap: 10 },
   nameInput: { flex: 1, fontFamily: 'Lato_400Regular', fontSize: 15, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 10, borderWidth: 1 },
-  saveBtn: { borderRadius: 12, paddingHorizontal: 16, paddingVertical: 10 },
-  saveBtnText: { fontFamily: 'Lato_700Bold', fontSize: 13, color: '#0F0B18' },
+  saveBtn: { borderRadius: 12, paddingHorizontal: 16, paddingVertical: 10, minHeight: 44, justifyContent: 'center' },
+  saveBtnText: { fontFamily: 'Lato_700Bold', fontSize: 13 },
   nameRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 18, paddingBottom: 14 },
   nameValue: { fontFamily: 'Lato_400Regular', fontSize: 15 },
   nameSub: { paddingHorizontal: 18, paddingBottom: 14 },
@@ -467,7 +457,7 @@ const styles = StyleSheet.create({
   themeRow: { flexDirection: 'row', alignItems: 'center', padding: 16, gap: 14 },
   themePreview: { width: 40, height: 40, borderRadius: 10 },
   activeCheck: { width: 24, height: 24, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
-  activeCheckText: { fontFamily: 'Lato_700Bold', fontSize: 12, color: '#0F0B18' },
+  activeCheckText: { fontFamily: 'Lato_700Bold', fontSize: 12 },
   langGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, paddingHorizontal: 14, paddingBottom: 14 },
   langBtn: { width: '28%', minWidth: 70, paddingVertical: 10, borderRadius: 12, alignItems: 'center', borderWidth: 1, gap: 2 },
   langCode: { fontFamily: 'Lato_700Bold', fontSize: 13 },

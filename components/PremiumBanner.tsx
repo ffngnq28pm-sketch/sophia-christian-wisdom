@@ -51,7 +51,7 @@ export function PremiumBanner({ onPress, currentIndex = 0 }: Props) {
           </Text>
         ) : (
           <Text style={[styles.label, { color: colors.textMuted }]}>
-            Sagesse {currentIndex + 1} sur {FREE_CARD_LIMIT} · Sophia Premium
+            Sagesse {currentIndex + 1} sur {FREE_CARD_LIMIT} · Olivia Premium
           </Text>
         )}
       </View>

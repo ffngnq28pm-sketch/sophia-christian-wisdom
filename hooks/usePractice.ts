@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { AsyncStorage_like } from '@/context/storage';
 
-const JOURNAL_KEY = 'sophia_journal_v1';
-const SESSION_KEY = 'sophia_session_done_v1';
-const PATHS_KEY = 'sophia_path_progress_v1';
+const JOURNAL_KEY = 'olivia_journal_v1';
+const SESSION_KEY = 'olivia_session_done_v1';
+const PATHS_KEY = 'olivia_path_progress_v1';
 
 export interface JournalEntry {
   id: string;

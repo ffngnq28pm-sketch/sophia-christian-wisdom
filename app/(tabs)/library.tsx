@@ -79,6 +79,8 @@ export default function LibraryScreen() {
             style={styles.namesBanner}
             onPress={handleNamesPress}
             activeOpacity={0.88}
+            accessibilityRole="button"
+            accessibilityLabel="Ouvrir la collection Premium : Les 50 Noms de Dieu"
           >
             <Image
               source={{ uri: 'https://images.pexels.com/photos/773471/pexels-photo-773471.jpeg?auto=compress&cs=tinysrgb&w=800' }}
@@ -86,7 +88,7 @@ export default function LibraryScreen() {
               resizeMode="cover"
             />
             <LinearGradient
-              colors={['rgba(15,11,24,0.25)', 'rgba(15,11,24,0.82)']}
+              colors={['rgba(21,35,64,0.30)', 'rgba(10,22,50,0.88)']}
               style={StyleSheet.absoluteFillObject}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
@@ -94,15 +96,15 @@ export default function LibraryScreen() {
             <View style={styles.namesBannerContent}>
               <View style={styles.namesBannerLeft}>
                 <View style={styles.namesPremiumBadge}>
-                  <Star size={11} color="#C4954A" fill="#C4954A" />
-                  <Text style={styles.namesPremiumText}>PREMIUM</Text>
+                  <Star size={11} color={colors.textAccent} fill={colors.textAccent} />
+                  <Text style={[styles.namesPremiumText, { color: colors.textAccent }]}>PREMIUM</Text>
                 </View>
-                <Text style={styles.namesLatin}>Nomina Dei</Text>
-                <Text style={styles.namesFrench}>Les 50 Noms de Dieu</Text>
-                <Text style={styles.namesDesc}>Collection exclusive de 50 méditations</Text>
+                <Text style={[styles.namesLatin, { color: colors.textPrimary }]}>Nomina Dei</Text>
+                <Text style={[styles.namesFrench, { color: colors.textAccent }]}>Les 50 Noms de Dieu</Text>
+                <Text style={[styles.namesDesc, { color: 'rgba(237,228,208,0.62)' }]}>Cinquante méditations sur l'ineffable</Text>
               </View>
-              <View style={styles.namesArrow}>
-                <ChevronRight size={20} color="#C4954A" />
+              <View style={[styles.namesArrow, { backgroundColor: colors.textAccent + '1F', borderColor: colors.borderAccent }]}>
+                <ChevronRight size={20} color={colors.textAccent} />
               </View>
             </View>
           </TouchableOpacity>
@@ -112,6 +114,8 @@ export default function LibraryScreen() {
             style={styles.fathersBanner}
             onPress={handleFathersPress}
             activeOpacity={0.88}
+            accessibilityRole="button"
+            accessibilityLabel="Ouvrir la collection Premium : Pères de l'Église et Saints"
           >
             <Image
               source={{ uri: 'https://images.pexels.com/photos/1252890/pexels-photo-1252890.jpeg?auto=compress&cs=tinysrgb&w=800' }}
@@ -119,7 +123,7 @@ export default function LibraryScreen() {
               resizeMode="cover"
             />
             <LinearGradient
-              colors={['rgba(15,11,24,0.15)', 'rgba(15,11,24,0.85)']}
+              colors={['rgba(21,35,64,0.20)', 'rgba(10,22,50,0.90)']}
               style={StyleSheet.absoluteFillObject}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
@@ -127,15 +131,15 @@ export default function LibraryScreen() {
             <View style={styles.namesBannerContent}>
               <View style={styles.namesBannerLeft}>
                 <View style={styles.namesPremiumBadge}>
-                  <Star size={11} color="#C4954A" fill="#C4954A" />
-                  <Text style={styles.namesPremiumText}>PREMIUM</Text>
+                  <Star size={11} color={colors.textAccent} fill={colors.textAccent} />
+                  <Text style={[styles.namesPremiumText, { color: colors.textAccent }]}>PREMIUM</Text>
                 </View>
-                <Text style={styles.fathersTitle}>Patres Ecclesiae</Text>
-                <Text style={styles.fathersFrench}>Pères de l'Église & Saints</Text>
-                <Text style={styles.namesDesc}>8 figures encyclopédiques</Text>
+                <Text style={[styles.fathersTitle, { color: colors.textPrimary }]}>Patres Ecclesiae</Text>
+                <Text style={styles.fathersFrench}>Pères de l'Église &amp; Saints</Text>
+                <Text style={[styles.namesDesc, { color: 'rgba(237,228,208,0.62)' }]}>Huit figures, l'héritage vivant</Text>
               </View>
-              <View style={styles.namesArrow}>
-                <ChevronRight size={20} color="#C4954A" />
+              <View style={[styles.namesArrow, { backgroundColor: colors.textAccent + '1F', borderColor: colors.borderAccent }]}>
+                <ChevronRight size={20} color={colors.textAccent} />
               </View>
             </View>
           </TouchableOpacity>
@@ -228,8 +232,13 @@ export default function LibraryScreen() {
       <Modal visible={!!selectedCard} transparent animationType="slide" statusBarTranslucent>
         <View style={styles.modalOverlay}>
           <View style={[styles.modalSheet, { backgroundColor: colors.bgCard }]}>
-            <TouchableOpacity style={styles.modalClose} onPress={() => setSelectedCard(null)}>
-              <X size={20} color="#8A8FA8" />
+            <TouchableOpacity
+              style={[styles.modalClose, { backgroundColor: colors.bgSection }]}
+              onPress={() => setSelectedCard(null)}
+              accessibilityRole="button"
+              accessibilityLabel="Fermer la sagesse"
+            >
+              <X size={20} color={colors.textMuted} />
             </TouchableOpacity>
             {selectedCard && (
               <ScrollView showsVerticalScrollIndicator={false}>
@@ -275,7 +284,7 @@ const styles = StyleSheet.create({
     height: 120,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: 'rgba(196,149,74,0.3)',
+    borderColor: 'rgba(220,180,80,0.32)',
   },
   namesBannerContent: {
     flex: 1,
@@ -293,27 +302,23 @@ const styles = StyleSheet.create({
   namesPremiumText: {
     fontFamily: 'Lato_700Bold',
     fontSize: 9,
-    color: '#C4954A',
     letterSpacing: 1.5,
   },
   namesLatin: {
     fontFamily: 'Cinzel_700Bold',
     fontSize: 16,
-    color: '#F2EAD8',
-    textShadowColor: 'rgba(196,149,74,0.4)',
+    textShadowColor: 'rgba(220,180,80,0.4)',
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 10,
   },
   namesFrench: {
     fontFamily: 'Lato_700Bold',
     fontSize: 13,
-    color: '#C4954A',
     letterSpacing: 0.3,
   },
   namesDesc: {
     fontFamily: 'Lato_400Regular',
     fontSize: 11,
-    color: 'rgba(255,255,255,0.5)',
   },
   fathersBanner: {
     marginHorizontal: 20,
@@ -327,7 +332,6 @@ const styles = StyleSheet.create({
   fathersTitle: {
     fontFamily: 'Cinzel_700Bold',
     fontSize: 15,
-    color: '#F2EAD8',
     textShadowColor: 'rgba(138,75,19,0.5)',
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 10,
@@ -342,9 +346,7 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: 'rgba(196,149,74,0.12)',
     borderWidth: 1,
-    borderColor: 'rgba(196,149,74,0.3)',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -372,10 +374,9 @@ const styles = StyleSheet.create({
   modalClose: {
     alignSelf: 'flex-end',
     marginBottom: 12,
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     alignItems: 'center',
     justifyContent: 'center',
   },

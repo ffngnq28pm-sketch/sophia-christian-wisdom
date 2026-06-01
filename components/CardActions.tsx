@@ -19,7 +19,7 @@ export function CardActions({ card, isFavorite, onFavoriteToggle }: Props) {
   async function handleShare() {
     try {
       await Share.share({
-        message: `${card.latin}\n\n"${card.french}"\n— ${card.source}\n\n"${card.philosophy}"\n— ${card.philosophyAuthor}\n\n✦ Sophia · Σοφία`,
+        message: `${card.latin}\n\n"${card.french}"\n— ${card.source}\n\n"${card.philosophy}"\n— ${card.philosophyAuthor}\n\n🕊 Olivia`,
       });
     } catch {}
   }

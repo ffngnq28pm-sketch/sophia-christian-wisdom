@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "saints": [
+    {
+      "id": "s1",
+      "name": "François d'Assise",
+      "title": "Patron de l'écologie",
+      "dates": "1181/1182 — 1226",
+      "feast": "4 octobre",
+      "bio": "Fils d'un riche marchand d'Assise, François renonça à tout pour épouser « Dame Pauvreté ». Il fonda les Frères mineurs et reconnut Dieu dans le moindre brin d'herbe, dans le loup comme dans l'agneau. Son Cantique de Frère Soleil (1224) est le premier grand chant de la création en langue vulgaire — il y appelle le soleil, la lune, le vent, l'eau, le feu et la terre nos « frères » et « sœurs ». Proclamé patron des écologistes en 1979 par Jean-Paul II.",
+      "quote": "Loué sois-tu, mon Seigneur, pour notre sœur Mère Terre, qui nous porte et nous nourrit."
+    },
+    {
+      "id": "s2",
+      "name": "Hildegarde de Bingen",
+      "title": "Docteur de l'Église, abbesse rhénane",
+      "dates": "1098 — 1179",
+      "feast": "17 septembre",
+      "bio": "Bénédictine allemande, visionnaire, théologienne, musicienne, médecin et botaniste. Hildegarde a écrit sur la « viriditas » — la verdeur, la force vive qui parcourt toute la création. Ses Causae et curae sont un traité de médecine naturelle. Pour elle, la santé humaine et la santé de la terre sont liées par un même souffle divin. Proclamée docteur de l'Église par Benoît XVI en 2012.",
+      "quote": "La verdeur, c'est l'âme du monde. Toute chose verte, qui pousse, qui fleurit, est un reflet de Dieu."
+    },
+    {
+      "id": "s3",
+      "name": "Kateri Tekakwitha",
+      "title": "Lys des Mohawks",
+      "dates": "1656 — 1680",
+      "feast": "14 juillet",
+      "bio": "Première sainte amérindienne, fille d'un chef mohawk et d'une mère algonquienne chrétienne. Orpheline jeune, convertie à 19 ans, elle vécut en grande proximité avec la nature canadienne — forêts, rivières, animaux. Pour beaucoup, elle incarne le pont entre la sagesse autochtone respectueuse de la terre et la foi chrétienne. Canonisée en 2012.",
+      "quote": "J'ai trouvé tout ce que je cherchais : le Créateur dans sa création."
+    },
+    {
+      "id": "s4",
+      "name": "Benoît de Nursie",
+      "title": "Père du monachisme occidental",
+      "dates": "480 — 547",
+      "feast": "11 juillet",
+      "bio": "Fondateur de l'ordre bénédictin et de l'abbaye du Mont-Cassin. Sa Règle, basée sur « ora et labora » (prie et travaille), a fait des monastères des centres de culture agricole — défrichage, irrigation, vignobles, vergers. Les bénédictins ont littéralement façonné le paysage européen. Patron de l'Europe.",
+      "quote": "Que tous les ustensiles et les biens du monastère soient considérés comme les vases sacrés de l'autel."
+    },
+    {
+      "id": "s5",
+      "name": "Antoine du Désert",
+      "title": "Père des moines",
+      "dates": "251 — 356",
+      "feast": "17 janvier",
+      "bio": "Égyptien, premier ermite chrétien, qui vécut près de 80 ans dans le désert d'Égypte. Il y trouva Dieu non dans la fuite du monde, mais dans une présence aiguisée à la nature — au silence, au sable, aux étoiles, aux bêtes sauvages qu'il apprivoisa. Son exemple inspirera tout le monachisme.",
+      "quote": "Le livre de la nature m'est plus présent que tous les écrits."
+    },
+    {
+      "id": "s6",
+      "name": "Bernard de Clairvaux",
+      "title": "Docteur mellifluus",
+      "dates": "1090 — 1153",
+      "feast": "20 août",
+      "bio": "Cistercien, mystique, conseiller de papes et de rois. Ses moines blancs essaimèrent dans toute l'Europe, fondant des abbayes en pleine nature, cultivant les terres, élevant le bétail, créant des systèmes hydrauliques qu'on admire encore. Bernard a écrit que la forêt enseigne ce que les livres ne peuvent dire.",
+      "quote": "Tu trouveras plus dans les forêts que dans les livres : les arbres et les pierres t'enseigneront ce qu'aucun maître ne pourrait te transmettre."
+    },
+    {
+      "id": "s7",
+      "name": "Cuthbert de Lindisfarne",
+      "title": "Berger des âmes et des bêtes",
+      "dates": "634 — 687",
+      "feast": "20 mars",
+      "bio": "Moine et évêque anglo-saxon, célèbre pour son amour des animaux. Les récits monastiques racontent qu'il fut secouru par des loutres, qu'il défendit les oiseaux marins. Il édicta les premières lois protégeant la faune sauvage des îles Farne — une des plus anciennes protections d'oiseaux au monde.",
+      "quote": "Toute créature loue Dieu à sa manière. Mon devoir est de protéger la louange."
+    },
+    {
+      "id": "s8",
+      "name": "Colomban",
+      "title": "Pèlerin des forêts d'Europe",
+      "dates": "543 — 615",
+      "feast": "23 novembre",
+      "bio": "Moine irlandais missionnaire en Gaule et en Italie. Il fonda plusieurs monastères au cœur des forêts (Luxeuil, Bobbio) et apprit à vivre en harmonie avec les ours et les loups. Sa règle monastique exigeait un profond respect du vivant.",
+      "quote": "Si tu veux connaître Dieu, apprends d'abord à connaître ses œuvres."
+    },
+    {
+      "id": "s9",
+      "name": "Phocas le Jardinier",
+      "title": "Patron des jardiniers",
+      "dates": "IIIe — IVe siècle",
+      "feast": "23 juillet",
+      "bio": "Phocas vivait à Sinope, sur la mer Noire, comme jardinier. Il accueillait les pèlerins, leur offrant le pain de son jardin. Quand des soldats vinrent l'arrêter pour sa foi sans le reconnaître, il leur prépara à manger, leur révéla son identité, puis demanda à creuser sa propre tombe dans son jardin avant le martyre.",
+      "quote": "Travailler la terre, c'est déjà servir Dieu. Hospitalité et patience sont mes seules armes."
+    },
+    {
+      "id": "s10",
+      "name": "Charles de Foucauld",
+      "title": "Frère universel",
+      "dates": "1858 — 1916",
+      "feast": "1er décembre",
+      "bio": "Officier français, explorateur, prêtre, ermite au Sahara. Il vécut chez les Touaregs, étudia leur langue et leur culture, et fit l'expérience d'un Dieu rencontré dans le dépouillement du désert. Sa figure inspire une écologie intérieure : moins pour être plus, désencombrement, attention au pauvre et à la terre.",
+      "quote": "Que la création toute entière soit pour moi un livre ouvert où je puisse lire chaque jour la grandeur de Dieu."
+    },
+    {
+      "id": "s11",
+      "name": "Thérèse de Lisieux",
+      "title": "Petite Fleur du Carmel",
+      "dates": "1873 — 1897",
+      "feast": "1er octobre",
+      "bio": "Carmélite normande, docteur de l'Église. Sa « petite voie » trouve Dieu dans les choses minuscules : un brin d'herbe, un sourire, un caillou. Elle voyait dans la pluie, les fleurs et les couchers de soleil des signes de l'amour personnel de Dieu. Patronne secondaire des missions et de la France.",
+      "quote": "Je veux être une petite fleur, m'offrir à Dieu telle que je suis, dans la simplicité du jardin qu'il a planté."
+    },
+    {
+      "id": "s12",
+      "name": "Martin de Tours",
+      "title": "Apôtre des Gaules",
+      "dates": "316 — 397",
+      "feast": "11 novembre",
+      "bio": "Soldat romain devenu évêque, célèbre pour avoir partagé son manteau avec un pauvre. Il fonda Marmoutier, premier monastère en Gaule, dans un site sauvage au bord de la Loire. Il s'opposa à la coupe d'arbres sacrés, non pour les païens, mais parce qu'il voyait dans tout arbre une œuvre du Créateur."
+    },
+    {
+      "id": "s13",
+      "name": "Jeanne d'Arc",
+      "title": "Pucelle de Domrémy",
+      "dates": "1412 — 1431",
+      "feast": "30 mai",
+      "bio": "Bergère lorraine, mystique, libératrice d'Orléans. Avant les voix et les batailles, il y eut l'arbre des fées de Domrémy, les sources, les bois où elle gardait les moutons. Sa sainteté est profondément enracinée dans la terre paysanne qui l'a formée."
+    },
+    {
+      "id": "s14",
+      "name": "Brigitte d'Irlande",
+      "title": "Marie des Gaëls",
+      "dates": "451 — 525",
+      "feast": "1er février",
+      "bio": "Abbesse irlandaise du Ve siècle, vénérée pour sa proximité avec les pauvres et avec la nature celtique. Les légendes racontent qu'elle apprivoisa renards et sangliers. Elle est associée à la fête païenne d'Imbolc, célébration du retour de la lumière et du printemps — une sainte à la frontière des mondes."
+    },
+    {
+      "id": "s15",
+      "name": "Marie Madeleine",
+      "title": "Apôtre des Apôtres",
+      "dates": "Ier siècle",
+      "feast": "22 juillet",
+      "bio": "La femme qui, au matin de Pâques, prit le Ressuscité pour le jardinier (Jean 20, 15). Cette méprise n'en était pas une : le Christ ressuscité se révèle d'abord dans un jardin, comme Adam au commencement. Marie Madeleine est ainsi la patronne secrète de tous ceux qui cultivent la terre dans l'espérance de la résurrection."
+    }
+  ]
+}

@@ -16,5 +16,14 @@
       "autoIncrement": true,
       "channel": "production"
     }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "Charif.Hachichi@hotmail.fr",
+        "ascAppId": "6773872600",
+        "appleTeamId": "8BDCCST69F"
+      }
+    }
   }
 }

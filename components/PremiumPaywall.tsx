@@ -78,13 +78,19 @@ export function PremiumPaywall({ visible, onClose }: Props) {
               style={StyleSheet.absoluteFillObject}
             />
             <Animated.View style={[styles.shimmer, { transform: [{ translateX: shimmerX }] }]} />
-            <TouchableOpacity style={styles.closeBtn} onPress={onClose}>
+            <TouchableOpacity
+              style={styles.closeBtn}
+              onPress={onClose}
+              accessibilityRole="button"
+              accessibilityLabel="Fermer Olivia Premium"
+              hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+            >
               <X size={18} color="#8A8FA8" />
             </TouchableOpacity>
 
             <View style={styles.badge}>
               <Star size={11} color="#C4954A" fill="#C4954A" />
-              <Text style={styles.badgeText}>SOPHIA PREMIUM</Text>
+              <Text style={styles.badgeText}>OLIVIA PREMIUM</Text>
             </View>
 
             <Text style={styles.headline}>Illumine ta vie{'\n'}de sagesse éternelle</Text>
@@ -143,7 +149,7 @@ export function PremiumPaywall({ visible, onClose }: Props) {
           >
             <LinearGradient colors={['#D4A85A', '#C4954A', '#B08040']} style={styles.ctaGradient} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
               <Text style={styles.ctaText}>
-                {isLoading ? 'Traitement…' : plan === 'lifetime' ? 'Débloquer tout à vie — 39,99€' : 'Rejoindre Sophia Premium — 4,99€ / mois'}
+                {isLoading ? 'Traitement…' : plan === 'lifetime' ? 'Débloquer tout à vie — 39,99€' : 'Rejoindre Olivia Premium — 4,99€ / mois'}
               </Text>
             </LinearGradient>
           </TouchableOpacity>

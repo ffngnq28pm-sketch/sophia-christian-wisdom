@@ -23,7 +23,6 @@ import { RosaryCounter } from '@/components/RosaryCounter';
 import { DailyChallengeWidget } from '@/components/DailyChallengeWidget';
 import { DailySaintWidget } from '@/components/DailySaintWidget';
 import { StreakBadge } from '@/components/StreakBadge';
-import { AudioActivationBanner } from '@/components/AudioActivationBanner';
 import { useFavorites } from '@/hooks/useFavorites';
 import { usePremium, FREE_CARD_LIMIT } from '@/hooks/usePremium';
 import { useStreak } from '@/hooks/useStreak';
@@ -73,7 +72,7 @@ export default function HomeScreen() {
     month: 'long',
   });
 
-  const greeting = profile.firstName ? `Bonjour ${profile.firstName}` : 'Sophia · Σοφία';
+  const greeting = profile.firstName ? `Bonjour ${profile.firstName}` : 'Olivia';
 
   const onScroll = useCallback(
     (e: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -132,8 +131,6 @@ export default function HomeScreen() {
           <StreakBadge streak={streak} bestStreak={bestStreak} />
         </View>
 
-        <AudioActivationBanner />
-
         <LiturgicalCalendarWidget />
 
         <DailySaintWidget />
@@ -145,6 +142,8 @@ export default function HomeScreen() {
             style={[styles.focusBar, { backgroundColor: colors.bgSection, borderColor: colors.border }]}
             onPress={() => router.push('/(tabs)/settings')}
             activeOpacity={0.8}
+            accessibilityRole="button"
+            accessibilityLabel={`Intention du mois : ${focusDays} jour${focusDays > 1 ? 's' : ''} de ${profile.focusTheme} sur ${FOCUS_GOAL}. Ouvrir les réglages.`}
           >
             <View style={styles.focusLeft}>
               <Target size={13} color={colors.textAccent} />
@@ -174,6 +173,9 @@ export default function HomeScreen() {
               activeIndex === 0 && styles.navBtnDisabled,
             ]}
             activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityLabel="Sagesse précédente"
+            accessibilityState={{ disabled: activeIndex === 0 }}
           >
             <ChevronLeft
               size={18}
@@ -200,6 +202,9 @@ export default function HomeScreen() {
               activeIndex === visibleCards.length - 1 && styles.navBtnDisabled,
             ]}
             activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityLabel="Sagesse suivante"
+            accessibilityState={{ disabled: activeIndex === visibleCards.length - 1 }}
           >
             <ChevronRight
               size={18}
@@ -234,7 +239,15 @@ export default function HomeScreen() {
 
         <View style={styles.dotsRow}>
           {visibleCards.map((card, i) => (
-            <TouchableOpacity key={card.id} onPress={() => goTo(i)} activeOpacity={0.8}>
+            <TouchableOpacity
+              key={card.id}
+              onPress={() => goTo(i)}
+              activeOpacity={0.8}
+              accessibilityRole="button"
+              accessibilityLabel={`Aller à la sagesse ${i + 1} sur ${visibleCards.length}`}
+              accessibilityState={{ selected: i === activeIndex }}
+              hitSlop={{ top: 8, bottom: 8, left: 4, right: 4 }}
+            >
               <View
                 style={[
                   styles.dot,

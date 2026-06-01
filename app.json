@@ -1,29 +1,25 @@
 {
   "expo": {
-    "name": "Sophia — Σοφία",
+    "name": "Olivia",
     "slug": "sophia-christian-wisdom",
     "version": "1.0.0",
-    "description": "Sagesse chrétienne au quotidien — citations, chapelet, calendrier liturgique et méditations.",
+    "description": "Sagesse chrétienne au quotidien — paix, contemplation et soin de la création. Olivia, l'olivier qui veille.",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "sophia",
+    "scheme": "olivia",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash-icon.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#0F0B18"
+      "resizeMode": "contain",
+      "backgroundColor": "#1B2B4D"
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.sophia.christianwisdom",
+      "bundleIdentifier": "com.charif.olivia",
       "buildNumber": "1",
       "infoPlist": {
-        "UIBackgroundModes": [
-          "audio"
-        ],
-        "NSMicrophoneUsageDescription": "Sophia n'utilise pas le microphone.",
-        "CFBundleDisplayName": "Sophia",
+        "CFBundleDisplayName": "Olivia",
         "ITSAppUsesNonExemptEncryption": false
       },
       "privacyManifests": {
@@ -40,16 +36,12 @@
       }
     },
     "android": {
-      "package": "com.sophia.christianwisdom",
+      "package": "com.charif.olivia",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
-        "backgroundColor": "#0F0B18"
-      },
-      "permissions": [
-        "android.permission.FOREGROUND_SERVICE",
-        "android.permission.MODIFY_AUDIO_SETTINGS"
-      ]
+        "backgroundColor": "#1B2B4D"
+      }
     },
     "web": {
       "bundler": "metro",
@@ -61,23 +53,38 @@
       "expo-font",
       "expo-web-browser",
       [
-        "expo-av",
+        "expo-splash-screen",
         {
-          "microphonePermission": false
+          "backgroundColor": "#1B2B4D",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "dark": {
+            "backgroundColor": "#1B2B4D",
+            "image": "./assets/images/splash-icon.png"
+          }
         }
       ],
       [
         "expo-notifications",
         {
           "icon": "./assets/images/icon.png",
-          "color": "#0F0B18",
+          "color": "#1B2B4D",
           "sounds": []
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Olivia souhaite enregistrer des fonds d'écran de méditation chrétienne dans votre photothèque.",
+          "savePhotosPermission": "Olivia souhaite enregistrer des fonds d'écran de méditation chrétienne dans votre photothèque.",
+          "isAccessMediaLocationEnabled": false
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true,
-      "baseUrl": "/sophia-christian-wisdom"
+      "baseUrl": "/olivia-preview"
     },
     "extra": {
       "router": {},
