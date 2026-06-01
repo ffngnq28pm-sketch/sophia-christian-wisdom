@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { AsyncStorage_like } from '@/context/storage';
 
-const KEY_MANUAL  = 'sophia_night_manual';
-const KEY_AUTO    = 'sophia_night_auto';
-const KEY_TIMER   = 'sophia_night_timer';
+const KEY_MANUAL  = 'olivia_night_manual';
+const KEY_AUTO    = 'olivia_night_auto';
+const KEY_TIMER   = 'olivia_night_timer';
 
 export interface NightModeState {
   isNightMode: boolean;

@@ -2,8 +2,8 @@ import { Platform, NativeModules } from 'react-native';
 import { AsyncStorage_like } from '@/context/storage';
 
 export type ProductId =
-  | 'sophia_premium_monthly'
-  | 'sophia_premium_lifetime'
+  | 'olivia_premium_monthly'
+  | 'olivia_premium_lifetime'
   | 'tip_small'
   | 'tip_medium'
   | 'tip_large';
@@ -13,10 +13,10 @@ export interface PurchaseResult {
   error?: string;
 }
 
-const RC_KEY_IOS     = process.env.EXPO_PUBLIC_RC_KEY_IOS_SOPHIA     ?? '';
-const RC_KEY_ANDROID = process.env.EXPO_PUBLIC_RC_KEY_ANDROID_SOPHIA ?? '';
+const RC_KEY_IOS     = process.env.EXPO_PUBLIC_RC_KEY_IOS_OLIVIA     ?? '';
+const RC_KEY_ANDROID = process.env.EXPO_PUBLIC_RC_KEY_ANDROID_OLIVIA ?? '';
 const PREMIUM_ENTITLEMENT = 'premium';
-const CACHE_KEY = 'sophia_rc_premium_v1';
+const CACHE_KEY = 'olivia_rc_premium_v1';
 
 function getActiveKey(): string {
   return Platform.OS === 'ios' ? RC_KEY_IOS : RC_KEY_ANDROID;
@@ -33,7 +33,7 @@ let _rcListeners: PremiumListener[] = [];
 const MockStore = {
   async purchase(_productId: ProductId): Promise<PurchaseResult> {
     await new Promise((r) => setTimeout(r, 800));
-    if (_productId.startsWith('sophia_premium')) {
+    if (_productId.startsWith('olivia_premium')) {
       AsyncStorage_like.set(CACHE_KEY, 'true');
       _rcListeners.forEach((fn) => fn(true));
       return { success: true };

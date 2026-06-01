@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { AsyncStorage_like } from '@/context/storage';
 
-const STORAGE_KEY = 'sophia_streak_v1';
+const STORAGE_KEY = 'olivia_streak_v1';
 
 interface StreakData {
   lastDate: string;

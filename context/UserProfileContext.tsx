@@ -39,7 +39,7 @@ const ProfileContext = createContext<ProfileCtx>({
   focusDays: 0,
 });
 
-const KEY = 'sophia_user_profile';
+const KEY = 'olivia_user_profile';
 
 export function UserProfileProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<UserProfile>(DEFAULT);

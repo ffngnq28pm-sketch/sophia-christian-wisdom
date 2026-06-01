@@ -16,8 +16,8 @@ export interface PremiumState {
 }
 
 const PLAN_MAP: Record<PremiumPlan, ProductId> = {
-  monthly: 'sophia_premium_monthly',
-  lifetime: 'sophia_premium_lifetime',
+  monthly: 'olivia_premium_monthly',
+  lifetime: 'olivia_premium_lifetime',
 };
 const TIP_MAP: Record<'small' | 'medium' | 'large', ProductId> = {
   small: 'tip_small',

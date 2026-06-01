@@ -83,13 +83,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<AppTheme>('dark');
 
   useEffect(() => {
-    const saved = AsyncStorage_like.get('sophia_theme') as AppTheme | null;
+    const saved = AsyncStorage_like.get('olivia_theme') as AppTheme | null;
     if (saved && THEMES[saved]) setThemeState(saved);
   }, []);
 
   function setTheme(t: AppTheme) {
     setThemeState(t);
-    AsyncStorage_like.set('sophia_theme', t);
+    AsyncStorage_like.set('olivia_theme', t);
   }
 
   return (

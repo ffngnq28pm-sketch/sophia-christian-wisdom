@@ -72,6 +72,14 @@
           "color": "#1B2B4D",
           "sounds": []
         }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Olivia souhaite enregistrer des fonds d'écran de méditation chrétienne dans votre photothèque.",
+          "savePhotosPermission": "Olivia souhaite enregistrer des fonds d'écran de méditation chrétienne dans votre photothèque.",
+          "isAccessMediaLocationEnabled": false
+        }
       ]
     ],
     "experiments": {

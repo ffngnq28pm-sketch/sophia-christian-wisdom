@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { Animated } from 'react-native';
 import { AsyncStorage_like } from '@/context/storage';
 
-const STORAGE_KEY = 'sophia_rosary_v1';
+const STORAGE_KEY = 'olivia_rosary_v1';
 const MILESTONES = [10, 50, 150];
 
 interface RosaryStorage {
