@@ -47,16 +47,8 @@ const META_BLOCK = `
     <meta name="twitter:title" content="${TITLE}" />
     <meta name="twitter:description" content="${DESCRIPTION}" />
     <meta name="twitter:image" content="${OG_IMAGE}" />
-    <style id="olivia-desktop-wrapper">
+    <style id="olivia-bg">
       body { background-color: #1B2B4D; }
-      @media (min-width: 800px) {
-        body { background: radial-gradient(ellipse at top, #1B2B4D, #0F1A33 70%); }
-        #root {
-          max-width: 600px;
-          margin: 0 auto;
-          box-shadow: 0 0 60px rgba(0, 0, 0, 0.55), 0 0 1px rgba(196, 149, 74, 0.2);
-        }
-      }
     </style>
 `;
 
