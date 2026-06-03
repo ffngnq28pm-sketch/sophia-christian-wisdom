@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { StoreService, ProductId, PurchaseResult } from '@/services/StoreService';
+import { StoreService, ProductId, PurchaseResult, LivePrice } from '@/services/StoreService';
 
 export const FREE_CARD_LIMIT = 50;
 
@@ -13,6 +13,7 @@ export interface PremiumState {
   purchaseTip: (size: 'small' | 'medium' | 'large') => Promise<PurchaseResult>;
   isCardLocked: (cardIndex: number) => boolean;
   unlockPremium: () => void;
+  prices: Partial<Record<ProductId, LivePrice>>;
 }
 
 const PLAN_MAP: Record<PremiumPlan, ProductId> = {
@@ -36,6 +37,7 @@ function broadcast(v: boolean) {
 export function usePremium(): PremiumState {
   const [isPremium, setIsPremium] = useState(_isPremium);
   const [isLoading, setIsLoading] = useState(false);
+  const [prices, setPrices] = useState<Partial<Record<ProductId, LivePrice>>>({});
 
   useEffect(() => {
     const stored = StoreService.isPremiumActive();
@@ -45,6 +47,16 @@ export function usePremium(): PremiumState {
     return () => {
       _listeners = _listeners.filter((fn) => fn !== setIsPremium);
       unsubRC();
+    };
+  }, []);
+
+  useEffect(() => {
+    let mounted = true;
+    StoreService.getLivePrices().then((p) => {
+      if (mounted) setPrices(p);
+    });
+    return () => {
+      mounted = false;
     };
   }, []);
 
@@ -92,5 +104,5 @@ export function usePremium(): PremiumState {
     broadcast(true);
   }, []);
 
-  return { isPremium, isLoading, purchasePlan, restorePurchases, purchaseTip, isCardLocked, unlockPremium };
+  return { isPremium, isLoading, purchasePlan, restorePurchases, purchaseTip, isCardLocked, unlockPremium, prices };
 }

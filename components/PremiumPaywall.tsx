@@ -28,8 +28,19 @@ const FEATURES = [
 ];
 
 export function PremiumPaywall({ visible, onClose }: Props) {
-  const { purchasePlan, restorePurchases, isLoading } = usePremium();
+  const { purchasePlan, restorePurchases, isLoading, prices } = usePremium();
   const [plan, setPlan] = useState<PremiumPlan>('lifetime');
+
+  // Prix live RevenueCat (= ASC). Fallbacks alignés sur les vrais prix ASC pour
+  // Expo Go/web/mock, où getLivePrices() renvoie {}.
+  const lifetimePrice = prices['olivia_premium_lifetime']?.priceString ?? '19,99 €';
+  const monthlyPrice = prices['olivia_premium_monthly']?.priceString ?? '2,99 €';
+  const lifetimeNum = prices['olivia_premium_lifetime']?.price;
+  const monthlyNum = prices['olivia_premium_monthly']?.price;
+  // Mois d'abonnement équivalents au paiement unique, recalculés depuis les
+  // valeurs numériques. Fallback round(19.99 / 2.99) = 7.
+  const moisEquivalents =
+    lifetimeNum && monthlyNum ? Math.round(lifetimeNum / monthlyNum) : Math.round(19.99 / 2.99);
   const [restoreMsg, setRestoreMsg] = useState('');
   const shimmer = useRef(new Animated.Value(0)).current;
   const slideUp = useRef(new Animated.Value(60)).current;
@@ -119,14 +130,14 @@ export function PremiumPaywall({ visible, onClose }: Props) {
               activeOpacity={0.8}
             >
               <View style={styles.bestValueBadge}>
-                <Text style={styles.bestValueText}>★ MEILLEURE OFFRE · ≈ 8 MOIS D'ABONNEMENT</Text>
+                <Text style={styles.bestValueText}>★ MEILLEURE OFFRE · ≈ {moisEquivalents} MOIS D'ABONNEMENT</Text>
               </View>
               <View style={[styles.planLeft, { marginTop: 8 }]}>
                 <View>
                   <Text style={styles.planName}>À vie</Text>
                   <Text style={styles.planPrice}>Paiement unique · accès permanent</Text>
                 </View>
-                <Text style={[styles.planName, { fontSize: 20 }]}>39,99€</Text>
+                <Text style={[styles.planName, { fontSize: 20 }]}>{lifetimePrice}</Text>
               </View>
             </TouchableOpacity>
 
@@ -136,7 +147,7 @@ export function PremiumPaywall({ visible, onClose }: Props) {
               activeOpacity={0.8}
             >
               <Text style={styles.planName}>Mensuel</Text>
-              <Text style={styles.planPrice}>4,99 € / mois · résiliable à tout moment</Text>
+              <Text style={styles.planPrice}>{monthlyPrice} / mois · résiliable à tout moment</Text>
             </TouchableOpacity>
           </View>
 
@@ -149,7 +160,11 @@ export function PremiumPaywall({ visible, onClose }: Props) {
           >
             <LinearGradient colors={['#D4A85A', '#C4954A', '#B08040']} style={styles.ctaGradient} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
               <Text style={styles.ctaText}>
-                {isLoading ? 'Traitement…' : plan === 'lifetime' ? 'Débloquer tout à vie — 39,99€' : 'Rejoindre Olivia Premium — 4,99€ / mois'}
+                {isLoading
+                  ? 'Traitement…'
+                  : plan === 'lifetime'
+                  ? `Débloquer tout à vie — ${lifetimePrice}`
+                  : `Rejoindre Olivia Premium — ${monthlyPrice} / mois`}
               </Text>
             </LinearGradient>
           </TouchableOpacity>

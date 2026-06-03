@@ -13,6 +13,11 @@ export interface PurchaseResult {
   error?: string;
 }
 
+export interface LivePrice {
+  priceString: string; // prix localisé prêt à afficher (ex. "19,99 €")
+  price: number;       // valeur numérique, pour les calculs (ex. 19.99)
+}
+
 const RC_KEY_IOS     = process.env.EXPO_PUBLIC_RC_KEY_IOS_OLIVIA     ?? '';
 const RC_KEY_ANDROID = process.env.EXPO_PUBLIC_RC_KEY_ANDROID_OLIVIA ?? '';
 const PREMIUM_ENTITLEMENT = 'premium';
@@ -88,6 +93,25 @@ export const StoreService = {
     } catch (e: any) {
       if (e?.userCancelled) return { success: false, error: 'Annulé' };
       return { success: false, error: e?.message ?? 'Erreur inconnue' };
+    }
+  },
+
+  // Prix live depuis RevenueCat (source de vérité = ASC). {} hors RC (Expo Go/web/mock),
+  // où le paywall retombe sur ses fallbacks alignés.
+  async getLivePrices(): Promise<Partial<Record<ProductId, LivePrice>>> {
+    if (!isRCAvailable()) return {};
+    try {
+      const Purchases = require('react-native-purchases').default;
+      const offerings = await Purchases.getOfferings();
+      const pkgs = offerings.current?.availablePackages ?? [];
+      const out: Partial<Record<ProductId, LivePrice>> = {};
+      for (const p of pkgs) {
+        const id = p.product.identifier as ProductId;
+        out[id] = { priceString: p.product.priceString, price: p.product.price };
+      }
+      return out;
+    } catch {
+      return {};
     }
   },
 
