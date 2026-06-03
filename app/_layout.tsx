@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { Stack, SplashScreen } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -13,6 +13,7 @@ import { NightModeProvider, useNightModeContext } from '@/context/NightModeConte
 import { Signature } from '@/components/Signature';
 import { StoreService } from '@/services/StoreService';
 import { NotificationService } from '@/services/NotificationService';
+import { hydrateStorage } from '@/context/storage';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -42,6 +43,13 @@ export default function RootLayout() {
     Lato_700Bold,
   });
 
+  // Hydratation du stockage persistant avant tout rendu : on évite ainsi de
+  // monter le router avec un profil vide (flash d'onboarding) puis de l'écraser.
+  const [storageHydrated, setStorageHydrated] = useState(false);
+  useEffect(() => {
+    hydrateStorage().then(() => setStorageHydrated(true));
+  }, []);
+
   useEffect(() => {
     StoreService.configure().catch(() => {});
     NotificationService.requestPermissions().then((granted) => {
@@ -50,12 +58,14 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    if (fontsLoaded || fontError) {
+    if ((fontsLoaded || fontError) && storageHydrated) {
       SplashScreen.hideAsync();
     }
-  }, [fontsLoaded, fontError]);
+  }, [fontsLoaded, fontError, storageHydrated]);
 
-  if (!fontsLoaded && !fontError) {
+  // Tant que polices ET stockage ne sont pas prêts, on ne rend rien : le splash
+  // natif reste affiché (écran neutre), donc aucun flash ni perte de données.
+  if ((!fontsLoaded && !fontError) || !storageHydrated) {
     return null;
   }
 
