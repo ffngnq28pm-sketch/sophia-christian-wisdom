@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { AsyncStorage_like } from './storage';
 
 export type Language = 'fr' | 'en';
@@ -297,12 +297,10 @@ const I18nContext = createContext<I18nCtx>({
 const KEY = 'olivia_language';
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Language>('fr');
-
-  useEffect(() => {
+  const [lang, setLangState] = useState<Language>(() => {
     const saved = AsyncStorage_like.get(KEY) as Language | null;
-    if (saved && LANG_MAP[saved]) setLangState(saved);
-  }, []);
+    return saved && LANG_MAP[saved] ? saved : 'fr';
+  });
 
   function setLang(l: Language) {
     setLangState(l);

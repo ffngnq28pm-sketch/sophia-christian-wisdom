@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { AsyncStorage_like } from '@/context/storage';
 
 const JOURNAL_KEY = 'olivia_journal_v1';
@@ -27,39 +27,28 @@ export interface PracticeState {
 export function usePractice(): PracticeState {
   const today = new Date().toISOString().slice(0, 10);
 
-  const [sessionCompletedToday, setSessionCompletedToday] = useState<boolean>(false);
-  const [entries, setEntries] = useState<JournalEntry[]>([]);
-  const [pathProgress, setPathProgress] = useState<Record<string, number>>({});
-
-  useEffect(() => {
-    // Load session completion status
-    const storedDate = AsyncStorage_like.get(SESSION_KEY);
-    if (storedDate === today) {
-      setSessionCompletedToday(true);
-    }
-
-    // Load journal entries
+  // Lectures synchrones à l'init (storage déjà hydraté) — pas de load différé.
+  const [sessionCompletedToday, setSessionCompletedToday] = useState<boolean>(
+    () => AsyncStorage_like.get(SESSION_KEY) === today
+  );
+  const [entries, setEntries] = useState<JournalEntry[]>(() => {
     const storedEntries = AsyncStorage_like.get(JOURNAL_KEY);
     if (storedEntries) {
       try {
-        const parsed: JournalEntry[] = JSON.parse(storedEntries);
-        setEntries(parsed.slice(0, 30));
-      } catch {
-        setEntries([]);
-      }
+        return (JSON.parse(storedEntries) as JournalEntry[]).slice(0, 30);
+      } catch {}
     }
-
-    // Load path progress
+    return [];
+  });
+  const [pathProgress, setPathProgress] = useState<Record<string, number>>(() => {
     const storedPaths = AsyncStorage_like.get(PATHS_KEY);
     if (storedPaths) {
       try {
-        const parsed: Record<string, number> = JSON.parse(storedPaths);
-        setPathProgress(parsed);
-      } catch {
-        setPathProgress({});
-      }
+        return JSON.parse(storedPaths) as Record<string, number>;
+      } catch {}
     }
-  }, [today]);
+    return {};
+  });
 
   const completeSession = useCallback(() => {
     AsyncStorage_like.set(SESSION_KEY, today);

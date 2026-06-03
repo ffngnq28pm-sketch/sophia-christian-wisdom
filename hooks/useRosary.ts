@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { Animated } from 'react-native';
 import { AsyncStorage_like } from '@/context/storage';
 
@@ -46,21 +46,19 @@ export interface RosaryState {
 }
 
 export function useRosary(): RosaryState {
-  const [count, setCount] = useState(0);
-  const floatAnim = useRef(new Animated.Value(0)).current;
-  const lastMilestone = useRef(0);
-
-  useEffect(() => {
+  const [count, setCount] = useState<number>(() => {
     const raw = AsyncStorage_like.get(STORAGE_KEY);
-    if (!raw) return;
-    try {
-      const stored: RosaryStorage = JSON.parse(raw);
-      if (stored.date === getTodayKey()) {
-        setCount(stored.count);
-        lastMilestone.current = Math.max(...MILESTONES.filter((m) => m <= stored.count), 0);
-      }
-    } catch {}
-  }, []);
+    if (raw) {
+      try {
+        const stored: RosaryStorage = JSON.parse(raw);
+        if (stored.date === getTodayKey()) return stored.count;
+      } catch {}
+    }
+    return 0;
+  });
+  const floatAnim = useRef(new Animated.Value(0)).current;
+  // Le ref n'utilise son argument qu'au 1er render : dérivé du count initial.
+  const lastMilestone = useRef(Math.max(...MILESTONES.filter((m) => m <= count), 0));
 
   const persist = useCallback((n: number) => {
     const data: RosaryStorage = { count: n, date: getTodayKey() };

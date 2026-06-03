@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { AsyncStorage_like } from '@/context/storage';
 
 const KEY_MANUAL  = 'olivia_night_manual';
@@ -20,19 +20,20 @@ function isEvening(): boolean {
 }
 
 export function useNightMode(): NightModeState {
-  const [manual,      setManual]      = useState<boolean | null>(null);
-  const [autoEnabled, setAutoState]   = useState(true);
-  const [timer,       setTimerState]  = useState<number | null>(null);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
+  const [manual, setManual] = useState<boolean | null>(() => {
     const m = AsyncStorage_like.get(KEY_MANUAL);
+    return m !== null ? m === 'true' : null;
+  });
+  const [autoEnabled, setAutoState] = useState<boolean>(() => {
     const a = AsyncStorage_like.get(KEY_AUTO);
+    return a !== null ? a === 'true' : true;
+  });
+  const [timer, setTimerState] = useState<number | null>(() => {
     const t = AsyncStorage_like.get(KEY_TIMER);
-    if (m !== null) setManual(m === 'true');
-    if (a !== null) setAutoState(a === 'true');
-    if (t !== null) setTimerState(t === 'null' ? null : parseInt(t, 10));
-  }, []);
+    if (t === null) return null;
+    return t === 'null' ? null : parseInt(t, 10);
+  });
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const toggleManual = useCallback(() => {
     setManual((prev) => {

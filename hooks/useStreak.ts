@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { AsyncStorage_like } from '@/context/storage';
 
 const STORAGE_KEY = 'olivia_streak_v1';
@@ -29,14 +29,13 @@ export interface StreakState {
 }
 
 export function useStreak(): StreakState {
-  const [data, setData] = useState<StreakData>({ lastDate: '', streak: 0, bestStreak: 0 });
-
-  useEffect(() => {
+  const [data, setData] = useState<StreakData>(() => {
     const raw = AsyncStorage_like.get(STORAGE_KEY);
     if (raw) {
-      try { setData(JSON.parse(raw)); } catch {}
+      try { return JSON.parse(raw); } catch {}
     }
-  }, []);
+    return { lastDate: '', streak: 0, bestStreak: 0 };
+  });
 
   const recordOpen = useCallback(() => {
     const today = getTodayKey();

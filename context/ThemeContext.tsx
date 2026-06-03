@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { AsyncStorage_like } from './storage';
 
 export type AppTheme = 'dark' | 'light' | 'sepia';
@@ -80,12 +80,10 @@ const ThemeContext = createContext<ThemeCtx>({
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<AppTheme>('dark');
-
-  useEffect(() => {
+  const [theme, setThemeState] = useState<AppTheme>(() => {
     const saved = AsyncStorage_like.get('olivia_theme') as AppTheme | null;
-    if (saved && THEMES[saved]) setThemeState(saved);
-  }, []);
+    return saved && THEMES[saved] ? saved : 'dark';
+  });
 
   function setTheme(t: AppTheme) {
     setThemeState(t);

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { AsyncStorage_like } from './storage';
 
 export type FocusTheme = 'Patience' | 'Gratitude' | 'Amour' | 'Foi' | 'Sagesse' | 'Paix';
@@ -42,16 +42,18 @@ const ProfileContext = createContext<ProfileCtx>({
 const KEY = 'olivia_user_profile';
 
 export function UserProfileProvider({ children }: { children: React.ReactNode }) {
-  const [profile, setProfile] = useState<UserProfile>(DEFAULT);
-
-  useEffect(() => {
+  // Lecture synchrone à l'init : le storage est déjà hydraté (gate dans
+  // app/_layout.tsx), donc le 1er render porte la valeur persistée — pas de
+  // course avec le guard d'onboarding de l'accueil.
+  const [profile, setProfile] = useState<UserProfile>(() => {
     const raw = AsyncStorage_like.get(KEY);
     if (raw) {
       try {
-        setProfile({ ...DEFAULT, ...JSON.parse(raw) });
+        return { ...DEFAULT, ...JSON.parse(raw) };
       } catch {}
     }
-  }, []);
+    return DEFAULT;
+  });
 
   function update(patch: Partial<UserProfile>) {
     setProfile((prev) => {
