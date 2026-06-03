@@ -3,14 +3,17 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
+  ScrollView,
   TouchableOpacity,
   FlatList,
   Dimensions,
   NativeSyntheticEvent,
   NativeScrollEvent,
   Platform,
+  LayoutChangeEvent,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { StatusBar } from 'expo-status-bar';
 import { ChevronLeft, ChevronRight, Target } from 'lucide-react-native';
 import { router } from 'expo-router';
@@ -32,8 +35,11 @@ import { useLiturgicalCalendar, PERIOD_THEMES } from '@/hooks/useLiturgicalCalen
 import { CARDS } from '@/data/cards';
 import { WisdomCard as WisdomCardType, Theme } from '@/types';
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const FOCUS_GOAL = 30;
+// Hauteur de repli du carrousel avant la mesure réelle (évite une FlatList à 0
+// au premier rendu) : carte (~height*0.72) + actions + compteur de chapelet.
+const SLIDE_FALLBACK_HEIGHT = Math.round(SCREEN_HEIGHT * 0.72) + 300;
 
 export default function HomeScreen() {
   const { favoriteIds, toggleFavorite } = useFavorites();
@@ -42,6 +48,19 @@ export default function HomeScreen() {
   const { profile, update, focusDays } = useUserProfile();
   const { period } = useLiturgicalCalendar();
   const { streak, bestStreak, recordOpen } = useStreak();
+  const tabBarHeight = useBottomTabBarHeight();
+  // Tous les slides ont la même hauteur (carte à hauteur fixe) : on en mesure un
+  // seul via onLayout et on en déduit la hauteur de la FlatList horizontale.
+  const [slideHeight, setSlideHeight] = useState(SLIDE_FALLBACK_HEIGHT);
+  const slideMeasured = useRef(false);
+  const mesurerSlide = useCallback((e: LayoutChangeEvent) => {
+    if (slideMeasured.current) return;
+    const h = Math.round(e.nativeEvent.layout.height);
+    if (h > 0) {
+      slideMeasured.current = true;
+      setSlideHeight(h);
+    }
+  }, []);
   const [paywallVisible, setPaywallVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const listRef = useRef<FlatList<WisdomCardType>>(null);
@@ -96,7 +115,7 @@ export default function HomeScreen() {
   };
 
   const renderItem = ({ item }: { item: WisdomCardType }) => (
-    <View style={styles.slide}>
+    <View style={styles.slide} onLayout={mesurerSlide}>
       <View style={styles.cardWrapper}>
         <WisdomCard card={item} />
       </View>
@@ -114,7 +133,12 @@ export default function HomeScreen() {
   return (
     <View style={[styles.root, { backgroundColor: colors.bg }]}>
       <StatusBar style={colors.statusBar} />
-      <SafeAreaView style={[styles.safeArea, Platform.OS === 'web' && { overflow: 'scroll' as any }]}>
+      <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeArea}>
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={{ paddingBottom: tabBarHeight + 24 }}
+          showsVerticalScrollIndicator={false}
+        >
         <View style={styles.header}>
           <View>
             <Text style={[styles.appName, { color: colors.textPrimary }]}>{greeting}</Text>
@@ -228,7 +252,7 @@ export default function HomeScreen() {
           decelerationRate="fast"
           snapToInterval={SCREEN_WIDTH}
           snapToAlignment="start"
-          style={[styles.flatList, Platform.OS === 'web' && { flex: undefined, height: 320 }]}
+          style={[{ height: slideHeight }, Platform.OS === 'web' && { height: 320 }]}
           contentContainerStyle={styles.flatListContent}
           getItemLayout={(_, index) => ({
             length: SCREEN_WIDTH,
@@ -258,6 +282,7 @@ export default function HomeScreen() {
             </TouchableOpacity>
           ))}
         </View>
+        </ScrollView>
       </SafeAreaView>
 
       <PremiumPaywall
@@ -360,7 +385,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     letterSpacing: 2.5,
   },
-  flatList: { flex: 1 },
+  scroll: { flex: 1 },
   flatListContent: { alignItems: 'flex-start' },
   slide: {
     width: SCREEN_WIDTH,
