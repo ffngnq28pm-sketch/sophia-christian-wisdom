@@ -18,5 +18,6 @@ jobs:
       - run: npm ci
       - name: Typecheck
         run: npm run typecheck
-      - name: Lint
-        run: npm run lint
+      # Lint retiré : `expo lint` exige qu'eslint soit installé/committé comme
+      # devDependency (sinon il tente une install interactive qui échoue en CI).
+      # À réactiver après `npx expo lint` local + commit des deps eslint.
