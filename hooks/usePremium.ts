@@ -12,7 +12,6 @@ export interface PremiumState {
   restorePurchases: () => Promise<boolean>;
   purchaseTip: (size: 'small' | 'medium' | 'large') => Promise<PurchaseResult>;
   isCardLocked: (cardIndex: number) => boolean;
-  unlockPremium: () => void;
   prices: Partial<Record<ProductId, LivePrice>>;
 }
 
@@ -99,10 +98,5 @@ export function usePremium(): PremiumState {
     [isPremium]
   );
 
-  const unlockPremium = useCallback(() => {
-    StoreService.unlockPremium();
-    broadcast(true);
-  }, []);
-
-  return { isPremium, isLoading, purchasePlan, restorePurchases, purchaseTip, isCardLocked, unlockPremium, prices };
+  return { isPremium, isLoading, purchasePlan, restorePurchases, purchaseTip, isCardLocked, prices };
 }

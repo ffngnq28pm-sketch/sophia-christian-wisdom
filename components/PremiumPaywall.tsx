@@ -20,7 +20,7 @@ interface Props {
 }
 
 const FEATURES = [
-  'Accès aux 60 sagesses de la bibliothèque',
+  'Accès illimité à toute la bibliothèque de sagesses',
   'Les Noms de Dieu — collection complète (50 noms)',
   'Pères de l\'Église & Saints — série encyclopédique',
   'Méditations du Carême et de l\'Avent',

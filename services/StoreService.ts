@@ -139,8 +139,4 @@ export const StoreService = {
     };
   },
 
-  unlockPremium(): void {
-    AsyncStorage_like.set(CACHE_KEY, 'true');
-    _rcListeners.forEach((fn) => fn(true));
-  },
 };
